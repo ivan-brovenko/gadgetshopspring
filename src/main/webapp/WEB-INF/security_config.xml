@@ -1,0 +1,10 @@
+<constraintBean>
+    <constraint>
+        <url-pattern>/order</url-pattern>
+        <role>client</role >
+    </constraint>
+    <constraint>
+        <url-pattern>/pages/admin.*</url-pattern>
+        <role>admin</role>
+    </constraint>
+</constraintBean>

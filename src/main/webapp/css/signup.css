@@ -1,0 +1,119 @@
+.content .reg{
+    border: 1px solid black;
+    width: 80%;
+    position: relative;
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    padding-bottom: 5%;
+    background-color: white;
+}
+
+.reg form{
+    width: 60%;
+    position: relative;
+    left: 20%;
+    right: 20%;
+}
+
+.reg input{
+    width: 100%;
+    padding: 1%;
+    margin: 2% 0 2% 0;
+}
+
+.reg label{
+    font-size: 1.4em;
+}
+
+.messages{
+    font-size: 1.2em;
+    font-weight: 600;
+    color: red;
+    margin-bottom: 2%;
+}
+
+.messages{
+    display: none;
+}
+
+#bt:hover{
+    cursor: pointer;
+}
+
+#bt{
+    background-color: black;
+    color: white;
+    font-size: 1.3em;
+}
+
+.content{
+    height: 90%;
+    padding-bottom: 5%;
+}
+
+.gender input{
+    width: 10%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+
+.gender label{
+    width: 10%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: inline;
+}
+
+.gender{
+    margin: 2% 0 2% 0;
+    background-color: rgba(136, 136, 136, 0.36);
+}
+
+#captcha{
+    width: 100%;
+    background-color: rgb(154, 154, 154);
+    margin-top: 2%;
+}
+
+.content{
+    height: auto;
+}
+
+.serv{
+    display: block;
+}
+
+.redOutline{
+    outline: solid red;
+}
+
+.noneOutline{
+    outline: none;
+}
+
+.content{
+    height: auto;
+}
+
+.show{
+    display: block;
+}
+
+.fileUpload{
+    padding: 2%;
+    background-color: #d3dee3;
+    text-align: center;
+    margin: 2% 0 2% 0;
+}
+
+.fileUpload input{
+    display: block;
+    width: 50%;
+    position: relative;
+    left: 25%;
+    font-size: 1.2em;
+}

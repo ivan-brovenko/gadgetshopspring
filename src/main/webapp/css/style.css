@@ -1,0 +1,437 @@
+html, body{
+    width: 100%;
+    height: 100%;
+    margin:0;
+}
+
+.tab{
+    width:auto;
+    height: auto;
+    min-width: 24%;
+    max-width: 0.1%;
+    cursor: pointer;
+    text-align: center;
+}
+
+.carusel{
+    margin: 0 auto;
+    position: relative;
+    width:99.8%;
+    height: auto;
+    padding-bottom: 40%;
+    background: #100f0e;
+    border: 1px solid black;
+}
+
+.lang-list{
+    display: none;
+}
+
+.slide_img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.slide_img img{
+    width: 100%;
+    height: 100%;
+}
+
+#i1, #i2, #i3{
+    display: none;
+}
+
+.pre, .nxt{
+    width: 12%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+    cursor: pointer;
+    transition:background, opacity;
+    transition-duration: 0.8s;
+    font-size: 4em;
+    color:white;
+    opacity: 0;
+}
+
+.nxt span{
+    position: relative;
+    top:40%;
+    left: 40%;
+}
+
+.pre span{
+    position: relative;
+    top:40%;
+    left: 30%;
+}
+
+.text{
+    width: 80%;
+    position: absolute;
+    font-size: 3.5em;
+    font-weight: 600;
+    top:40%;
+    left: 10%;
+    text-align: center;
+    font-family: Arial,sans-serif;
+    color: white;
+
+}
+
+.pre:hover, .nxt:hover{
+    background: rgba(253, 255, 255, 0.26);
+    opacity: 0.6;
+}
+
+.pre{
+    left: 0;
+}
+
+.nxt{
+    right: 0;
+}
+
+.nav{
+    width: 100%;
+    height: 11px;
+    bottom: 12%;
+    position: absolute;
+    text-align: center;
+    z-index: 99;
+}
+
+.dots{
+    top: -5px;
+    width: 18px;
+    height: 18px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 50%;
+    display: inline-block;
+    background-color: rgba(0,0,0,.6);
+    cursor: pointer;
+}
+
+.slide_img{
+    z-index: -1;
+    opacity:0.2;
+}
+
+#one,#two,#three{
+    transition-property: opacity;
+    transition-duration: 1.2s;
+}
+
+#i1:checked ~ #one,
+#i2:checked ~ #two,
+#i3:checked ~ #three{
+    z-index: 9;
+    opacity:1;
+}
+
+#i1:checked ~ .nav #dot1,
+#i2:checked ~ .nav #dot2,
+#i3:checked ~ .nav #dot3{
+    background: #fff;
+    cursor: none;
+}
+
+nav{
+    padding: 10px 0 10px 0;
+    background: #100f0e;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+ul{
+    margin:0;
+    padding:0;
+    list-style-type: none;
+    background: #100f0e;
+    position: relative;
+    text-align: right;
+}
+
+ul li{
+    display:inline-block;
+}
+
+ul li a{
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+    font-size: 1.1em;
+}
+
+ul li:hover a{
+    border-radius: 8px;
+    color: #828282;
+}
+
+ul li:hover ul{
+    display: block;
+}
+
+ul li i{
+    color:#292929;
+    float: right;
+    padding-left: 20px;
+    display: inline-block;
+}
+
+nav .humb{
+    background: #100f0e;
+    color: #ff1811;
+    font-size: 24px;
+    padding: 0.6em;
+    display: none;
+}
+
+nav i{
+    cursor: pointer;
+}
+
+.logo{
+    position: relative;
+    float: left;
+    color: #ff1811;
+    text-decoration: none;
+    padding: 5px 0 5px 80px;
+    display: block;
+    font-family: sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.logo:hover{
+    background: #100f0e;
+    cursor: pointer;
+}
+
+.last{
+    margin: 0 80px 0 0;
+}
+
+.inLogo{
+    text-align: center;
+    position: absolute;
+    width: 200px;
+    left: calc((100% - 200px)/2);
+    font-family: sans-serif;
+    font-weight: 600;
+}
+
+.content-text{
+    font-family: sans-serif;
+    padding: 3%;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.content-text h2{
+    text-align: center;
+    padding-top: 0;
+    font-size: 2em;
+}
+
+.last i{
+    color: white;
+    font-size: 2em;
+    background-color: #100f0e;
+    margin: 0;
+    position: relative;
+    top:10px;
+}
+
+.last:hover i{
+    cursor: pointer;
+    color: #828282;
+}
+
+.languages ul{
+    background-color: white;
+    width: 100%;
+    height: auto;
+    text-align: center;
+    display: none;
+}
+
+.languages ul li{
+    color: black;
+    margin: 1% 5% 1% 5%;
+    font-size: 1.1em;
+}
+
+.languages ul li:hover{
+    color: #888888;
+    cursor: pointer;
+}
+
+.languages a{
+    color:black;
+    padding: 0;
+}
+
+.languages a:hover{
+    color:#828282;
+}
+
+.lang-mini{
+    display: none;
+}
+
+@media screen and (max-device-width: 800px),screen and (max-width: 800px) {
+
+    nav .humb{
+        display: block;
+    }
+
+    nav ul{
+        display: none;
+        position: static;
+        background:#e3e3e3;
+    }
+
+    nav ul.menu li{
+        display: block;
+        text-align: left;
+        background:#e3e3e3;
+        margin:0;
+        padding: 0;
+    }
+
+    nav ul.menu .logo{
+        display: none;
+    }
+
+    nav ul.menu .last{
+        display: none;
+    }
+
+    nav ul li a{
+        color:black;
+    }
+
+    nav ul li:hover a{
+        background:#e3e3e3;
+        border-radius: 0;
+    }
+
+    .logo{
+        display: none;
+    }
+
+    .last{
+        margin: 0 0 0 0;
+        border-bottom: 1px solid black;
+    }
+
+    nav ul li {
+        border-top: 1px solid black;
+    }
+
+    .slide_img img{
+        width: auto;
+        height: 100%;
+        position: relative;
+        top:0;
+        left: calc((100% - 1000px)/2);
+
+    }
+
+    .carusel {
+        padding-bottom: 120%;
+    }
+
+    .text{
+        font-size: 2em;
+    }
+
+    .pre,.nxt{
+        font-size: 2em;
+    }
+
+    .languages{
+        display: none;
+    }
+
+    .last{
+        display: none;
+    }
+
+    .lang-mini{
+        display: block;
+        text-align: center;
+        position: absolute;
+        top:22px;
+        right: 20px;
+    }
+
+    .lang-mini i{
+        color:white;
+        font-size: 2em;
+    }
+
+    .lang-list li{
+        color: #100f0e;
+        text-decoration: none;
+        display: block;
+        font-size: 1.1em;
+        text-align: left;
+    }
+
+    .content-text{
+        padding-left: 10%;
+        padding-right: 10% ;
+    }
+
+    .tab{
+        display: none;
+    }
+
+    .loginblock label{
+        color: black;
+    }
+}
+
+.loginblock{
+    width: 600px;
+    height: 40px;
+    color:white;
+    padding-left: 20px;
+    font-size: 1.2em;
+}
+
+.loginblock .bt{
+    background-color: #d3bec7;
+    color:black;
+    font-size: 0.9em;
+    border-radius: 20px;
+    margin: 0 10px 0 10px;
+}
+
+.bt:hover{
+    cursor: pointer;
+}
+
+.loginblock img{
+    width: 30px;
+    height: 30px;
+    position: relative;
+    top: 10px;
+    right: 20px;
+}
+
+.loginerror{
+    color:red;
+    font-size: 1.2em;
+    float: right;
+    padding-right: 10%;
+}

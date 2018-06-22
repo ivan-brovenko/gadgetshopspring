@@ -1,0 +1,52 @@
+.innerContent{
+    width: 80%;
+    height: auto;
+    background-color: white;
+    margin-left: 10%;
+}
+
+.innerInfo{
+    text-align: left;
+    width: 50%;
+    margin-left: 25%;
+    font-size: 1.6em;
+    font-weight: 500;
+}
+
+.miniImg{
+    width: 80px;
+    height: auto;
+}
+
+.content{
+    height: auto;
+    padding-bottom: 30%;
+}
+div.gadget{
+    display: inline-block;
+    width: 200px;
+}
+
+h2{
+    padding-top: 2%;
+}
+
+.bt{
+    padding: 1%;
+    font-size: 1.4em;
+    border-radius: 10px;
+}
+.orderBt{
+    margin: 3% 0 3% 0;
+    background-color: greenyellow;
+}
+.back{
+    background-color: black;
+    color: white;
+}
+
+.innerInfo div span{
+    color: #ff4121;
+    padding-left: 3%;
+}
+

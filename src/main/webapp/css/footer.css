@@ -1,0 +1,36 @@
+footer{
+    width: 100%;
+    background-image: linear-gradient(to right,white,violet);
+    text-align: center;
+
+}
+
+footer ul{
+    background-color: #292929;
+    text-align: center;
+    padding: 20px;
+
+}
+
+footer ul li{
+    font-size: 2em;
+    transition-property: color;
+    transition-duration: .5s;
+}
+
+footer ul li i{
+    color: #828282;
+}
+
+footer ul li i:hover{
+    cursor:pointer;
+    color: #133aff;
+    transition:.5s;
+}
+
+.footer-headline{
+    width: 98%;
+    border-top: solid black;
+    border-bottom: solid black;
+    padding: 1%;
+}
