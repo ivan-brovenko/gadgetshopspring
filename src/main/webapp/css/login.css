@@ -1,0 +1,14 @@
+.content{
+    height: 80%;
+}
+
+.bt:hover{
+    cursor: pointer;
+}
+
+.bt{
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 1.3em;
+}

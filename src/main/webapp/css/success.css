@@ -1,0 +1,54 @@
+.textInfo{
+    text-align: left;
+    font-size: 1.2em;
+    padding: 4%;
+    width: 40%;
+    background-color: #ffffff;
+    float: left;
+}
+
+h2{
+    margin: -3% 0 3% 0;
+    padding: 0;
+}
+
+.basketInfo{
+    width: 45%;
+    background-color: red;
+    float: right;
+}
+
+.basketInfo .gadget{
+    width: 100%;
+    border:solid black;
+    background-color: #ffffff;
+}
+
+.imgMini{
+    width: 80px;
+    height: auto;
+}
+
+.gadget div{
+    display: inline;
+    font-size: 1.1em;
+    height: 100%;
+}
+
+.gadget{
+    text-align: left;
+}
+
+.gadget h3{
+    display: inline;
+    position: absolute;
+    margin-left: 10%;
+    padding-bottom: 20%;
+}
+.innerContent{
+    width: 80%;
+    position: relative;
+    left: 10%;
+}
+
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/epam/istore/util/RandomStringGenerator.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/error" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/1.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/10.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/11.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/12.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/13.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/14.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/15.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/16.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/17.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/18.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/19.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/2.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/3.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/4.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/5.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/6.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/7.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/8.png" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/img/products/9.png" charset="windows-1251" />
+  </component>
+</project>

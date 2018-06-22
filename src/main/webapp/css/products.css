@@ -1,0 +1,207 @@
+.content{
+    padding-top: 10%;
+    padding-bottom: 10%;
+    height: auto;
+}
+
+.gadget{
+    display: inline-block;
+    width: 25%;
+    text-align: center;
+    vertical-align: top;
+    padding: 2%;
+    background-color: white;
+    font-size: 15px;
+    margin-right: 1%;
+    margin-bottom: 15px;
+    min-width: 20%;
+    margin-top: 5%;
+}
+
+.gadget .descr{
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: left;
+}
+
+.gadget .image{
+
+    height: auto;
+    width: auto;
+}
+
+.gadget .descr button{
+    width: 40%;
+    height: auto;
+    text-align: left;
+    padding: 2%;
+    background-color: greenyellow;
+    color:black;
+    font-weight: bold;
+    border: solid black 1px;
+}
+
+.gadget .image{
+    cursor: pointer;
+}
+
+.gadget .descr button{
+    width: 40%;
+    height: auto;
+    text-align: left;
+    padding: 2%;
+    background-color: greenyellow;
+    color:black;
+    font-weight: bold;
+    border: solid black 1px;
+    margin-top: 2%;
+}
+.gadget .descr button:hover{
+    cursor: pointer;
+}
+
+.gadgetFilter{
+    background-color: white;
+    border:solid black;
+    width: 80%;
+    margin-bottom: 10%;
+    position: relative;
+    left: 10%;
+}
+
+.gadgetFilter h2{
+    font-size: 1.3em;
+}
+
+.apply{
+    border-radius: 10px;
+    background-color: #abe445;
+    font-size: 1.5em;
+    color: #000000;
+    padding: 0.8%;
+}
+.apply:hover{
+    cursor: pointer;
+}
+
+.firm select{
+    width: 10%;
+    font-size: 1.2em;
+}
+
+/*.gadgetFilter div{*/
+    /*background-color: #e3e3e3;*/
+    /*border: solid black;*/
+    /*padding-bottom: 5%;*/
+    /*margin: 5%;*/
+/*}*/
+.gadgetFilter table{
+    width: 100%;
+}
+
+.gadgetFilter input{
+    font-size: 1.2em;
+}
+.gadgetFilter label{
+    font-size: 1.2em;
+}
+
+.gadgetFilter select{
+    font-size: 1.1em;
+}
+.categories .categoriesInner input{
+    float: right;
+}
+.categoriesInner{
+    padding: 0 15% 0 15%;
+}
+
+.gadgetFilter{
+    border-radius: 20px;
+}
+
+.categories .categoriesInner {
+    text-align: left;
+}
+
+.gadgetFilter table tr td{
+    background-image: linear-gradient(to top,white, #e2e2e2);
+    text-align: center;
+    padding: 2%;
+    margin: 2%;
+}
+
+.firm select{
+    width: 30%;
+}
+.cut select{
+    width: 30%;
+}
+
+.pagination{
+    width: 100%;
+    background-color: white;
+    padding: 2% 0 2% 0;
+}
+
+.pagination span a{
+    color: white;
+    background-color: #888888;
+    font-size: 1.5em;
+    padding: 1.5%;
+    margin: 1%;
+    border-radius: 8px;
+    text-decoration: none;
+}
+/*.pagination{*/
+    /*font-size: 3em;*/
+/*}*/
+
+/*.paginationOuter a{*/
+    /*outline: none;*/
+    /*font-size: 3em;*/
+    /*color: red;*/
+/*}*/
+.pagination span #currentPage{
+    background-color: red;
+}
+
+.noGadget{
+    width: 100%;
+    height: 20%;
+    font-size: 2em;
+    color:red;
+    background-color: white;
+    padding: 10% 0 10% 0;
+}
+
+input.buyBt{
+    background-color: greenyellow;
+    padding: 2% 5% 2% 5%;
+    font-size: 1.3em;
+    border-radius: 5px;
+}
+.buyBt:hover{
+    cursor: pointer;
+}
+
+@media screen and (max-width:1100px) {
+    .gadget{
+        width: 80%;
+
+    }
+    .gadget .descr{
+        text-align: center;
+    }
+    .gadget .descr button{
+        text-align: center;
+    }
+    .categories input{
+        width: 20%;
+        font-size: 0.5em;
+    }
+    .gadgetFilter table  {
+        width: 50%;
+    }
+
+}
