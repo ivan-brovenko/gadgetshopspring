@@ -12,7 +12,7 @@ import com.epam.istore.exception.ServiceException;
 import com.epam.istore.repository.impl.GadgetRepositoryImpl;
 import com.epam.istore.service.GadgetService;
 import org.apache.log4j.Logger;
-import com.epam.istore.transaction.TransactionManager;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,50 +20,52 @@ import java.util.List;
 
 public class GadgetServiceImpl implements GadgetService {
     private GadgetRepositoryImpl gadgetRepository;
-    private TransactionManager transactionManager;
     private ProductQueryBuilder productQueryBuilder = new ProductQueryBuilder();
     private final static Logger LOGGER = Logger.getRootLogger();
 
-    public GadgetServiceImpl(GadgetRepositoryImpl gadgetRepository, TransactionManager transactionManager) {
+    public GadgetServiceImpl(GadgetRepositoryImpl gadgetRepository) {
         this.gadgetRepository = gadgetRepository;
-        this.transactionManager = transactionManager;
     }
 
+    @Transactional
     @Override
     public List<Product> getFiltered(ProductFormBean productFormBean) throws ServiceException {
         try {
             String query = productQueryBuilder.limitFilter(productFormBean,productQueryBuilder.build(productFormBean));
-            return transactionManager.doInTransaction(()->gadgetRepository.getFiltered(query));
+            return gadgetRepository.getFiltered(query);
         } catch (RepositoryException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
 
+    @Transactional
     @Override
     public int getNumberOfRows(String query) throws ServiceException {
         try {
-            return transactionManager.doInTransaction(()->gadgetRepository.getNumberOfRows(query));
+            return gadgetRepository.getNumberOfRows(query);
         } catch (RepositoryException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
 
+    @Transactional
     @Override
     public List<ProducerCountry> getAllCountries() throws ServiceException {
         try {
-            return transactionManager.doInTransaction(()->gadgetRepository.getAllCountries());
+            return gadgetRepository.getAllCountries();
         } catch (RepositoryException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
     }
 
+    @Transactional
     @Override
     public List<Category> getAllCategories() throws ServiceException {
         try {
-            return transactionManager.doInTransaction(()->gadgetRepository.getAllCategories());
+            return gadgetRepository.getAllCategories();
         } catch (RepositoryException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
@@ -92,10 +94,11 @@ public class GadgetServiceImpl implements GadgetService {
         return productListDTO;
     }
 
+    @Transactional
     @Override
     public Product getProductById(int productId) throws ServiceException {
         try {
-            return transactionManager.doInTransaction(()->gadgetRepository.getProductById(productId));
+            return gadgetRepository.getProductById(productId);
         } catch (RepositoryException e) {
             LOGGER.error(e);
             throw new ServiceException(e);

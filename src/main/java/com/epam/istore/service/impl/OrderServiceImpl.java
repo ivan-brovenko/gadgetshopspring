@@ -12,20 +12,19 @@ import com.epam.istore.transaction.TransactionManager;
 public class OrderServiceImpl implements OrderService {
     private final static Logger LOGGER = Logger.getRootLogger();
     private OrderRepository orderRepository;
-    private TransactionManager transactionManager;
 
-    public OrderServiceImpl(OrderRepository orderRepository, TransactionManager transactionManager) {
+    public OrderServiceImpl(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
-        this.transactionManager = transactionManager;
     }
 
     @Override
     public void addOrder(Order order) throws ServiceException {
         try {
-            transactionManager.doInTransaction(() -> orderRepository.addOrder(order));
+            orderRepository.addOrder(order);
         } catch (RepositoryException e) {
             LOGGER.error(e);
             throw new ServiceException(e);
         }
+
     }
 }

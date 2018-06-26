@@ -17,39 +17,34 @@ import com.epam.istore.transaction.TransactionManager;
 import com.epam.istore.service.impl.UserServiceImpl;
 import com.epam.istore.validator.RegFormValidator;
 import org.apache.log4j.Logger;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 public class ApplicationContext {
-    private final static Logger LOGGER = Logger.getRootLogger();
     private UserRepositoryImpl userRepositoryImpl;
     private UserService userService;
     private RegFormValidator validator;
     private CaptchaGenerator captchaGenerator;
-    private TransactionManager transactionManager;
     private AvatarService avatarService = new AvatarService();
     private GadgetService gadgetService;
     private GadgetRepositoryImpl gadgetRepository;
     private OrderConverter orderConverter;
     private OrderService orderService;
     private OrderRepository orderRepository;
+    private JdbcTemplate jdbcTemplate;
 
     public ApplicationContext() {
-        ConnectionPool connectionPool = null;
-        try {
-            connectionPool = ConnectionPool.getInstance();
-        } catch (ConnectionPoolException e) {
-            LOGGER.error(e);
-        }
-        ConnectionHolder connectionHolder = new ConnectionHolder();
-        this.userRepositoryImpl = new UserRepositoryImpl(connectionHolder);
-        this.transactionManager = new TransactionManager(connectionPool, connectionHolder);
-        this.userService = new UserServiceImpl(userRepositoryImpl, transactionManager);
         this.validator = new RegFormValidator();
         this.captchaGenerator = new CaptchaGenerator();
-        this.gadgetRepository = new GadgetRepositoryImpl(connectionHolder);
-        this.gadgetService = new GadgetServiceImpl(gadgetRepository,transactionManager);
         this.orderConverter = new OrderConverter();
-        this.orderRepository = new OrderRepositoryImpl(connectionHolder);
-        this.orderService = new OrderServiceImpl(orderRepository,transactionManager);
+        org.springframework.context.ApplicationContext applicationContext = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/spring.xml");
+        this.jdbcTemplate = (JdbcTemplate) applicationContext.getBean("jdbcTemplate");
+        this.userRepositoryImpl = new UserRepositoryImpl(jdbcTemplate);
+        this.userService = new UserServiceImpl(userRepositoryImpl);
+        this.gadgetRepository = new GadgetRepositoryImpl(jdbcTemplate);
+        this.gadgetService = new GadgetServiceImpl(gadgetRepository);
+        this.orderRepository = new OrderRepositoryImpl(jdbcTemplate);
+        this.orderService = new OrderServiceImpl(orderRepository);
     }
 
     public UserService getUserService() {

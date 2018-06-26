@@ -6,6 +6,12 @@ import com.epam.istore.entity.OrderedProduct;
 import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.repository.OrderRepository;
 import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.*;
 
@@ -13,22 +19,19 @@ import java.sql.*;
 public class OrderRepositoryImpl implements OrderRepository {
     private final static String ADD_ORDER = "INSERT INTO gadget_shop.order VALUES (DEFAULT ,DEFAULT ,DEFAULT ,?,?,?,?,?,?)";
     private final static String ADD_ITEM = "INSERT INTO gadget_shop.order_gadget VALUES (? ,?,?,?)";
-    private final static Logger LOGGER = Logger.getRootLogger();
-    private static final String NO_SUCH_BILLING = "No Such Billing";
-    private static final String NO_SUCH_SHIPPING = "No Such Shipping";
     public static final String ID = "id";
-    private ConnectionHolder connectionHolder;
     private final static String GET_SHIP_ID_BY_NAME = "SELECT ship.id FROM ship WHERE name = ?";
     private final static String GET_BILL_ID_BY_NAME = "SELECT  bill.id FROM bill WHERE bill.name = ?";
+    private JdbcTemplate jdbcTemplate;
 
-    public OrderRepositoryImpl(ConnectionHolder connectionHolder) {
-        this.connectionHolder = connectionHolder;
+    public OrderRepositoryImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public boolean addOrder(Order order) throws RepositoryException {
-        Connection connection = connectionHolder.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS)) {
+    public boolean addOrder(Order order) {
+        jdbcTemplate.update(connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_ORDER, Statement.RETURN_GENERATED_KEYS);
             int k = 1;
             int billId = getBillIdByName(order.getBilling());
             int shipId = getShipIdByName(order.getShipping());
@@ -46,56 +49,32 @@ public class OrderRepositoryImpl implements OrderRepository {
                     addItem(orderId, orderedProduct);
                 }
             }
-            return true;
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new RepositoryException(e);
-        }
+            return preparedStatement;
+        });
+        return true;
     }
 
-    private int getShipIdByName(String shippingName) throws RepositoryException {
-        Connection connection = connectionHolder.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_SHIP_ID_BY_NAME)) {
-            preparedStatement.setString(1, shippingName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+
+    private int getShipIdByName(String shippingName) {
+        return jdbcTemplate.queryForObject(GET_SHIP_ID_BY_NAME,new Object[]{shippingName}, new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getInt(ID);
             }
-            throw new RepositoryException(NO_SUCH_SHIPPING);
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new RepositoryException(e);
-        }
+        });
     }
 
-    private int getBillIdByName(String billingName) throws RepositoryException {
-        Connection connection = connectionHolder.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_BILL_ID_BY_NAME)) {
-            preparedStatement.setString(1, billingName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+    private int getBillIdByName(String billingName) {
+        return jdbcTemplate.queryForObject(GET_BILL_ID_BY_NAME,new Object[]{billingName}, new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet resultSet, int rowNumber) throws SQLException {
                 return resultSet.getInt(1);
             }
-            throw new RepositoryException(NO_SUCH_BILLING);
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new RepositoryException(e);
-        }
+        });
     }
 
-    private boolean addItem(int orderId, OrderedProduct orderedProduct) throws RepositoryException {
-        Connection connection = connectionHolder.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(ADD_ITEM)) {
-            int k = 1;
-            preparedStatement.setInt(k++, orderId);
-            preparedStatement.setInt(k++, orderedProduct.getProductId());
-            preparedStatement.setDouble(k++, orderedProduct.getOneProductPrice());
-            preparedStatement.setInt(k++, orderedProduct.getProductCount());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error(e);
-            throw new RepositoryException(e);
-        }
+    private boolean addItem(int orderId, OrderedProduct orderedProduct) {
+        jdbcTemplate.update(ADD_ITEM, orderId, orderedProduct.getProductId(), orderedProduct.getOneProductPrice(), orderedProduct.getProductCount());
         return true;
     }
 }
