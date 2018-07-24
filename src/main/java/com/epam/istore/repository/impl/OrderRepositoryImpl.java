@@ -45,9 +45,11 @@ public class OrderRepositoryImpl implements OrderRepository {
             ResultSet resultSet = preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 int orderId = resultSet.getInt(1);
-                for (OrderedProduct orderedProduct : order.getListOfOrderedProducts()) {
-                    addItem(orderId, orderedProduct);
-                }
+                order.getListOfOrderedProducts().forEach(orderedProduct -> addItem(orderId,orderedProduct));
+
+//                for (OrderedProduct orderedProduct : order.getListOfOrderedProducts()) {
+//                    addItem(orderId, orderedProduct);
+//                }
             }
             return preparedStatement;
         });

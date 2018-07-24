@@ -7,6 +7,7 @@ import com.epam.istore.exception.AuthenticationException;
 import com.epam.istore.service.AvatarService;
 import com.epam.istore.service.UserService;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
