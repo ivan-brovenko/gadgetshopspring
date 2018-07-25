@@ -1,6 +1,8 @@
 package com.epam.istore.bean;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class RegFormBean {
     private String name;
     private String surname;

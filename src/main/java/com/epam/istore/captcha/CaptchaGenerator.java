@@ -2,12 +2,14 @@ package com.epam.istore.captcha;
 
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.springframework.stereotype.Component;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
+@Component
 public class CaptchaGenerator {
     private static final int COUNT_OF_NUMBERS_IN_CAPTCHA = 4;
     private static final int FONT_SIZE = 18;

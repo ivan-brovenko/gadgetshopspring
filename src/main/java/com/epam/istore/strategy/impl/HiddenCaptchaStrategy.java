@@ -4,6 +4,7 @@ package com.epam.istore.strategy.impl;
 import com.epam.istore.captcha.Captcha;
 import com.epam.istore.captcha.CaptchaContainer;
 import com.epam.istore.strategy.CaptchaStrategy;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import static com.epam.istore.messages.Messages.HIDDEN_ID;
+
 
 public class HiddenCaptchaStrategy implements CaptchaStrategy {
     private CaptchaContainer captchaContainer;

@@ -6,6 +6,7 @@ import com.epam.istore.captcha.CaptchaContainer;
 import com.epam.istore.strategy.CaptchaStrategy;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

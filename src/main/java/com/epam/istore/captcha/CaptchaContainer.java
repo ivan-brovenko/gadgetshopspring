@@ -1,9 +1,12 @@
 package com.epam.istore.captcha;
 
 
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class   CaptchaContainer {
     private Map<String, Captcha> captchaContainer = new HashMap<String, Captcha>();
 

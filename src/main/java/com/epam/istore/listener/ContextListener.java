@@ -27,9 +27,7 @@ public class ContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent sce){
         ServletContext servletContext = sce.getServletContext();
-        ApplicationContext applicationContext = new ApplicationContext();
         CaptchaContainer captchaContainer = new CaptchaContainer();
-        servletContext.setAttribute(APP_CONTEXT, applicationContext);
         long timeout = Long.parseLong(servletContext.getInitParameter(TIMEOUT));
         StrategyContainer strategyContainer = new StrategyContainer(captchaContainer, timeout);
         CaptchaStrategy captchaStrategy = strategyContainer.getStrategyById(servletContext.getInitParameter(CAPTCHA_STRATEGY));

@@ -7,6 +7,7 @@ import com.epam.istore.messages.Messages;
 import com.epam.istore.service.CaptchaService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 
 import static com.epam.istore.messages.Messages.CAPTCHA_SERVICE;
 
+@Component
 public class RegFormValidator {
     private static final int MINIMUM_ALLOWED_PASSWORD_LENGTH = 8;
     private static final int MAX_ALLOWED_NAME_LENGTH = 15;

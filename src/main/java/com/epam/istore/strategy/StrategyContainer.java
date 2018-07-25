@@ -6,6 +6,7 @@ import com.epam.istore.strategy.impl.CookieCaptchaStrategy;
 import com.epam.istore.strategy.impl.HiddenCaptchaStrategy;
 import com.epam.istore.strategy.impl.SessionCaptchaStrategy;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;

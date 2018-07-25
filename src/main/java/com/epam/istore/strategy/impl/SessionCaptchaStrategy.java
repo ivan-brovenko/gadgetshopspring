@@ -3,6 +3,7 @@ package com.epam.istore.strategy.impl;
 
 import com.epam.istore.captcha.Captcha;
 import com.epam.istore.strategy.CaptchaStrategy;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

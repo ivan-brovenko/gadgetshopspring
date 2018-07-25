@@ -12,9 +12,18 @@ import com.epam.istore.service.UserService;
 import com.epam.istore.util.RandomStringGenerator;
 import com.epam.istore.validator.RegFormValidator;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.ServletContextAware;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,35 +37,48 @@ import static com.epam.istore.messages.Messages.*;
 import static com.epam.istore.messages.Messages.EMAIL;
 import static com.epam.istore.messages.Messages.PHOTO;
 
-@MultipartConfig(maxFileSize = 1024*1024*5)
-public class RegistrationServlet extends HttpServlet {
+//@MultipartConfig(maxFileSize = 1024*1024*5)
+@Controller
+@RequestMapping("/reg")
+public class RegistrationServlet {
     private static final String ERRORS = "errors";
     private final static Logger logger = Logger.getRootLogger();
-    private ApplicationContext applicationContext;
     private CaptchaService captchaService;
+    @Autowired
     private RegFormValidator validator;
+    @Autowired
     private AvatarService avatarService;
     private final static String COMMAND_START = "Registration command start";
     private final static String BEAN = "bean";
     private final static String REG_SERVLET_LINK = "/reg";
     private final static String SIGN_UP_PAGE_LINK = "/pages/signup.jsp";
     private final static String MAIN_PAGE_LINK = "/";
+    @Autowired
     private RegFormBean regFormBean;
+    @Autowired
+    @Qualifier("servletContext")
+    private ServletContext servletContext;
+    @Autowired
+    private UserService userService;
 
-    @Override
-    public void init() throws ServletException {
-        this.applicationContext = (ApplicationContext) getServletContext().getAttribute(APP_CONTEXT);
-        this.validator = applicationContext.getValidator();
-        this.captchaService = (CaptchaService) getServletContext().getAttribute(CAPTCHA_SERVICE);
-        this.avatarService = new AvatarService();
-        this.regFormBean = new RegFormBean();
+    @PostConstruct
+    public void init(){
+        this.captchaService = (CaptchaService) servletContext.getAttribute(CAPTCHA_SERVICE);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String postRequest(HttpServletRequest request) throws ServletException, IOException {
         logger.debug(COMMAND_START);
         RegFormBean regRegFormBean = fill(request);
         Map<String, String> errorMap = validator.validate(regRegFormBean, request);
-        UserService userService = applicationContext.getUserService();
         HttpSession session = request.getSession();
         if (request.getPart(PHOTO).getSize() == 0) {
             errorMap.put(PHOTO, EMPTY_PHOTO_ERROR);
@@ -64,35 +86,36 @@ public class RegistrationServlet extends HttpServlet {
         if (errorMap.isEmpty()) {
             avatarService.uploadAvatar(request, request.getParameter(EMAIL));
             logger.debug("User " + regRegFormBean.getEmail() + " registered");
-            addUserToUserService(userService, regRegFormBean, session, response, errorMap);
+            return addUserToUserService(userService, regRegFormBean, session, errorMap);
         } else {
             logger.error("Errors occured, can't register user " + regRegFormBean.getEmail());
             session.setAttribute(BEAN, regRegFormBean);
             session.setAttribute(ERRORS, errorMap);
-            response.sendRedirect(REG_SERVLET_LINK);
+            return "redirect:"+REG_SERVLET_LINK;
         }
     }
 
-    private void addUserToUserService(UserService userService, RegFormBean regRegFormBean, HttpSession session, HttpServletResponse response, Map<String, String> errorMap) throws IOException {
+    private String addUserToUserService(UserService userService, RegFormBean regRegFormBean, HttpSession session, Map<String, String> errorMap) throws IOException {
         try {
             userService.add(new RegFormConverter().convert(regRegFormBean));
-            response.sendRedirect(MAIN_PAGE_LINK);
+            return "redirect:"+MAIN_PAGE_LINK;
         } catch (UserServiceException e) {
             logger.error("User with login " + regRegFormBean.getEmail() + " already registered", e);
             errorMap.put(DUPLICATE, DUPLICATE_USER);
             session.setAttribute(BEAN, regRegFormBean);
             session.setAttribute(ERRORS, errorMap);
-            response.sendRedirect(REG_SERVLET_LINK);
+            return "redirect:"+REG_SERVLET_LINK;
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @RequestMapping(value = "",method = RequestMethod.GET)
+    public String getRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         createCaptcha(request, response);
-        request.getRequestDispatcher(SIGN_UP_PAGE_LINK).forward(request, response);
+        return SIGN_UP_PAGE_LINK;
     }
 
     private void createCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        long timeout = Long.parseLong(getServletContext().getInitParameter(TIMEOUT));
+        long timeout = Long.parseLong(servletContext.getInitParameter(TIMEOUT));
         Captcha captcha = captchaService.generateCaptcha(timeout);
         String captchaId = new RandomStringGenerator().getSaltString();
         captchaService.setCaptcha(captchaId, captcha, request, response);
@@ -110,4 +133,35 @@ public class RegistrationServlet extends HttpServlet {
         return regFormBean;
     }
 
+    public CaptchaService getCaptchaService() {
+        return captchaService;
+    }
+
+    public void setCaptchaService(CaptchaService captchaService) {
+        this.captchaService = captchaService;
+    }
+
+    public RegFormValidator getValidator() {
+        return validator;
+    }
+
+    public void setValidator(RegFormValidator validator) {
+        this.validator = validator;
+    }
+
+    public AvatarService getAvatarService() {
+        return avatarService;
+    }
+
+    public void setAvatarService(AvatarService avatarService) {
+        this.avatarService = avatarService;
+    }
+
+    public RegFormBean getRegFormBean() {
+        return regFormBean;
+    }
+
+    public void setRegFormBean(RegFormBean regFormBean) {
+        this.regFormBean = regFormBean;
+    }
 }
