@@ -7,8 +7,15 @@ import com.epam.istore.exception.AuthenticationException;
 import com.epam.istore.service.AvatarService;
 import com.epam.istore.service.UserService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,25 +28,21 @@ import static com.epam.istore.messages.Messages.*;
 import static com.epam.istore.messages.Messages.PASSWORD;
 
 
-@WebServlet(name = "LogInServlet", urlPatterns = "/login")
-public class LogInServlet extends HttpServlet {
+//@WebServlet(name = "LogInServlet", urlPatterns = "/login")
+@Controller
+public class LogInServlet {
     private static final String ERROR = "error";
-    public static final String REFERER = "referer";
-    private ApplicationContext applicationContext;
+    private static final String REFERER = "referer";
+    @Autowired
     private UserService userService;
     private final static Logger LOGGER = Logger.getRootLogger();
+    @Autowired
     private AvatarService avatarService;
+    @Autowired
     private LogInFormBean logInFormBean;
 
-    @Override
-    public void init() throws ServletException {
-        this.applicationContext = (ApplicationContext) getServletContext().getAttribute(APP_CONTEXT);
-        this.userService = applicationContext.getUserService();
-        this.avatarService = applicationContext.getAvatarService();
-        this.logInFormBean = new LogInFormBean();
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(HttpServletRequest request) throws IOException {
         LogInFormBean logInFormBean = fill(request);
         try {
             User user = userService.getAuthenticatedUser(logInFormBean.getEmail(), logInFormBean.getPassword());
@@ -53,12 +56,37 @@ public class LogInServlet extends HttpServlet {
         } catch (AuthenticationException e) {
             LOGGER.error("Can't authenticate user "+logInFormBean.getEmail(),e);
         }
-        response.sendRedirect(request.getHeader(REFERER));
+        System.out.println(request.getHeader(REFERER)+"refeeeeeeeeerer");
+        return "redirect:/";
     }
 
     private LogInFormBean fill(HttpServletRequest request){
         logInFormBean.setEmail(request.getParameter(EMAIL));
         logInFormBean.setPassword(request.getParameter(PASSWORD));
         return logInFormBean;
+    }
+
+    public UserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public AvatarService getAvatarService() {
+        return avatarService;
+    }
+
+    public void setAvatarService(AvatarService avatarService) {
+        this.avatarService = avatarService;
+    }
+
+    public LogInFormBean getLogInFormBean() {
+        return logInFormBean;
+    }
+
+    public void setLogInFormBean(LogInFormBean logInFormBean) {
+        this.logInFormBean = logInFormBean;
     }
 }

@@ -1,11 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <fmt:setLocale value="${pageContext.request.locale}"/>
 <fmt:setBundle basename="resources"/>
+
 <c:set var="user" scope="page" value="${sessionScope._user}"/>
 <div class="loginblock">
     <c:if test="${empty user}">
-        <form action="/login" method="post">
+        <form method="post" action="/login">
             <label for="emailTag"><fmt:message key="header.login"/> </label>
             <input type="text" id="emailTag" name="email">
             <label for="passwordTag"><fmt:message key="header.password"/> </label>

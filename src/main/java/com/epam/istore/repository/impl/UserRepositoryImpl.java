@@ -5,22 +5,23 @@ import com.epam.istore.entity.User;
 import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.messages.Messages;
 import com.epam.istore.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+@Repository
 public class UserRepositoryImpl implements UserRepository {
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     private final static String ADD_USER = "INSERT INTO user VALUES(default,?,?,?,?,?,default)";
     private final static String CONTAINS_USER = "SELECT email FROM user WHERE email = ?";
     private final static String GET_USER_BY_LOGIN_AND_PASSWORD = "SELECT user.id,user.name,user.surname,user.email,user.password,user.gender,role.name role FROM user INNER JOIN role ON user.role_id = role.id WHERE user.email = ? AND user.password = ?";
 
-    public UserRepositoryImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 
     public boolean add(User user) throws RepositoryException {
         if (containsUser(user)) {
@@ -65,4 +66,12 @@ public class UserRepositoryImpl implements UserRepository {
         return user;
     }
 
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    @Autowired
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 }

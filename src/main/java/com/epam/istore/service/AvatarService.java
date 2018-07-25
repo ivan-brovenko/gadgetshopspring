@@ -3,6 +3,7 @@ package com.epam.istore.service;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import static com.epam.istore.messages.Messages.AVATAR_DIRECTORY;
 import static com.epam.istore.messages.Messages.PNG;
 import static com.epam.istore.messages.Messages.PHOTO;
 
+@Component
 public class AvatarService {
     private static final String DEFAULT_IMAGE = "/img/avdef.jpg";
     private final static Logger LOGGER = Logger.getRootLogger();

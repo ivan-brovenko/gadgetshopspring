@@ -1,6 +1,8 @@
 package com.epam.istore.bean;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class LogInFormBean {
     private String email;
     private String password;

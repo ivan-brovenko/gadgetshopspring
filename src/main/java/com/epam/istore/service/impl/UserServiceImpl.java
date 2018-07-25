@@ -8,16 +8,20 @@ import com.epam.istore.exception.UserServiceException;
 import com.epam.istore.repository.impl.UserRepositoryImpl;
 import com.epam.istore.service.UserService;
 import org.apache.log4j.Logger;
-import com.epam.istore.transaction.TransactionManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 
-
+@Component
+@Service
 public class UserServiceImpl implements UserService {
     private final static Logger LOGGER = Logger.getRootLogger();
     private UserRepositoryImpl repository;
 
+    @Autowired
     public UserServiceImpl(UserRepositoryImpl repository) {
         this.repository = repository;
     }

@@ -17,8 +17,12 @@ import com.epam.istore.transaction.TransactionManager;
 import com.epam.istore.service.impl.UserServiceImpl;
 import com.epam.istore.validator.RegFormValidator;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
 
 public class ApplicationContext {
     private UserRepositoryImpl userRepositoryImpl;
@@ -37,9 +41,9 @@ public class ApplicationContext {
         this.validator = new RegFormValidator();
         this.captchaGenerator = new CaptchaGenerator();
         this.orderConverter = new OrderConverter();
-        org.springframework.context.ApplicationContext applicationContext = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/spring.xml");
-        this.jdbcTemplate = (JdbcTemplate) applicationContext.getBean("jdbcTemplate");
-        this.userRepositoryImpl = new UserRepositoryImpl(jdbcTemplate);
+//        org.springframework.context.ApplicationContext applicationContext = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/spring-servlet.xml");
+//        this.jdbcTemplate = (JdbcTemplate) applicationContext.getBean("jdbcTemplate");
+//        this.userRepositoryImpl = new UserRepositoryImpl(jdbcTemplate);
         this.userService = new UserServiceImpl(userRepositoryImpl);
         this.gadgetRepository = new GadgetRepositoryImpl(jdbcTemplate);
         this.gadgetService = new GadgetServiceImpl(gadgetRepository);
@@ -109,5 +113,13 @@ public class ApplicationContext {
 
     public void setOrderService(OrderService orderService) {
         this.orderService = orderService;
+    }
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 }
