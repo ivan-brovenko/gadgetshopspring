@@ -28,7 +28,6 @@ import static com.epam.istore.messages.Messages.*;
 import static com.epam.istore.messages.Messages.PASSWORD;
 
 
-//@WebServlet(name = "LogInServlet", urlPatterns = "/login")
 @Controller
 public class LogInServlet {
     private static final String ERROR = "error";
@@ -50,17 +49,25 @@ public class LogInServlet {
             if (user == null) {
                 session.setAttribute(ERROR, AUTHENTICATE_ERROR);
             } else {
-                avatarService.uploadAvatarToTempFolder(request,user.getEmail());
+                avatarService.uploadAvatarToTempFolder(request, user.getEmail());
                 session.setAttribute(USER_ATTRIBUTE_NAME, user);
             }
         } catch (AuthenticationException e) {
-            LOGGER.error("Can't authenticate user "+logInFormBean.getEmail(),e);
+            LOGGER.error("Can't authenticate user " + logInFormBean.getEmail(), e);
         }
-        System.out.println(request.getHeader(REFERER)+"refeeeeeeeeerer");
-        return "redirect:/";
+        return "redirect:" + request.getHeader(REFERER);
     }
 
-    private LogInFormBean fill(HttpServletRequest request){
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(USER_ATTRIBUTE_NAME);
+        avatarService.removeTempAvatar(request, user.getEmail());
+        userService.logout(session);
+        return "redirect:" + request.getHeader(REFERER);
+    }
+
+    private LogInFormBean fill(HttpServletRequest request) {
         logInFormBean.setEmail(request.getParameter(EMAIL));
         logInFormBean.setPassword(request.getParameter(PASSWORD));
         return logInFormBean;

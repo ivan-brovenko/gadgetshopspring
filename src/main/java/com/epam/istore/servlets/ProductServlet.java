@@ -12,6 +12,10 @@ import com.epam.istore.messages.Messages;
 import com.epam.istore.service.GadgetService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,23 +29,37 @@ import java.util.List;
 import static com.epam.istore.messages.Messages.*;
 
 
-@WebServlet(name = "ProductServlet", urlPatterns = "/products")
+//@WebServlet(name = "ProductServlet", urlPatterns = "/products")
+@Controller
+@RequestMapping("/products")
 public class ProductServlet extends HttpServlet {
     private static final String CURRENT_PAGE = "&currentPage=.*";
     private static final String CURRENT_PAGE_EQUALS = "currentPage=";
-    private ApplicationContext applicationContext;
+    @Autowired
     private GadgetService gadgetService;
     private static final String URL = "urlOfAttributes";
     public final static Logger LOGGER = Logger.getRootLogger();
-    private ProductFormBean productFormBean = new ProductFormBean();
+    @Autowired
+    private ProductFormBean productFormBean;
 
-    @Override
-    public void init() throws ServletException {
-        this.applicationContext = (ApplicationContext) getServletContext().getAttribute(APP_CONTEXT);
-        this.gadgetService = applicationContext.getGadgetService();
+    public GadgetService getGadgetService() {
+        return gadgetService;
+    }
+    @Autowired
+    public void setGadgetService(GadgetService gadgetService) {
+        this.gadgetService = gadgetService;
+    }
+    @Autowired
+    public ProductFormBean getProductFormBean() {
+        return productFormBean;
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void setProductFormBean(ProductFormBean productFormBean) {
+        this.productFormBean = productFormBean;
+    }
+
+    @RequestMapping(name = "/", method = RequestMethod.GET)
+    public String showListOfProducts(HttpServletRequest request){
         try {
             setAttributesFromPreviousRequest(request);
             fill(request);
@@ -57,7 +75,7 @@ public class ProductServlet extends HttpServlet {
         } catch (ServiceException e) {
             LOGGER.error(e);
         }
-        request.getRequestDispatcher(PAGES_PRODUCTS_JSP).forward(request, response);
+        return PAGES_PRODUCTS_JSP;
     }
 
     private String validateQueryString(String queryString){

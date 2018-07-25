@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 
-@Component
 @Service
 public class UserServiceImpl implements UserService {
     private final static Logger LOGGER = Logger.getRootLogger();

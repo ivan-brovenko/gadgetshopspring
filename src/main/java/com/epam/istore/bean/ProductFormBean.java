@@ -1,7 +1,9 @@
 package com.epam.istore.bean;
 
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProductFormBean {
     private String priceMin;
     private String priceMax;

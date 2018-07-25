@@ -9,8 +9,10 @@ import com.epam.istore.entity.User;
 import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.repository.GadgetRepository;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class GadgetRepositoryImpl implements GadgetRepository {
     private static final String ID = "id";
     private static final String MEMORY_SIZE = "memory_size";
@@ -36,7 +39,7 @@ public class GadgetRepositoryImpl implements GadgetRepository {
     private final static String GET_ALL_COUNTRIES = "SELECT id,country_name FROM producer_country;";
     private JdbcTemplate jdbcTemplate;
 
-
+    @Autowired
     public GadgetRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
