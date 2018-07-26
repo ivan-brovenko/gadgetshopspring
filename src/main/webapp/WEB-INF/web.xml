@@ -27,15 +27,15 @@
         <!--<listener-class>com.epam.istore.listener.ContextListener</listener-class>-->
     <!--</listener>-->
 
-    <context-param>
-        <param-name>CaptchaStrategy</param-name>
-        <param-value>session</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>CaptchaStrategy</param-name>-->
+        <!--<param-value>session</param-value>-->
+    <!--</context-param>-->
 
-    <context-param>
-        <param-name>timeout</param-name>
-        <param-value>60</param-value>
-    </context-param>
+    <!--<context-param>-->
+        <!--<param-name>timeout</param-name>-->
+        <!--<param-value>60</param-value>-->
+    <!--</context-param>-->
 
     <context-param>
         <param-name>avatarDirectory</param-name>

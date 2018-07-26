@@ -4,6 +4,11 @@ package com.epam.istore.strategy.impl;
 import com.epam.istore.captcha.Captcha;
 import com.epam.istore.captcha.CaptchaContainer;
 import com.epam.istore.strategy.CaptchaStrategy;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,16 +21,18 @@ import java.util.concurrent.TimeUnit;
 
 import static com.epam.istore.messages.Messages.HIDDEN_ID;
 
-
+@Component
+@Qualifier("hidden")
 public class HiddenCaptchaStrategy implements CaptchaStrategy {
+    @Autowired
+    @Getter
+    @Setter
     private CaptchaContainer captchaContainer;
+    @Getter
+    @Setter
+    @Value("60")
     private long timeout;
     private ScheduledExecutorService executorService;
-
-    public HiddenCaptchaStrategy(CaptchaContainer captchaContainer, long timeout) {
-        this.captchaContainer = captchaContainer;
-        this.timeout = timeout;
-    }
 
     public String getId(HttpServletRequest request) {
         return request.getParameter(HIDDEN_ID);

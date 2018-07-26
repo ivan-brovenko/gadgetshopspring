@@ -11,13 +11,17 @@ import com.epam.istore.service.CaptchaService;
 import com.epam.istore.service.UserService;
 import com.epam.istore.util.RandomStringGenerator;
 import com.epam.istore.validator.RegFormValidator;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -43,8 +47,13 @@ import static com.epam.istore.messages.Messages.PHOTO;
 public class RegistrationServlet {
     private static final String ERRORS = "errors";
     private final static Logger logger = Logger.getRootLogger();
+    @Autowired
+    @Setter
+    @Getter
     private CaptchaService captchaService;
     @Autowired
+    @Setter
+    @Getter
     private RegFormValidator validator;
     @Autowired
     private AvatarService avatarService;
@@ -53,34 +62,26 @@ public class RegistrationServlet {
     private final static String REG_SERVLET_LINK = "/reg";
     private final static String SIGN_UP_PAGE_LINK = "/pages/signup.jsp";
     private final static String MAIN_PAGE_LINK = "/";
+    @Value("60")
+    @Getter
+    @Setter
+    private long timeout;
     @Autowired
+    @Setter
+    @Getter
     private RegFormBean regFormBean;
     @Autowired
-    @Qualifier("servletContext")
-    private ServletContext servletContext;
-    @Autowired
+    @Setter
+    @Getter
     private UserService userService;
 
-    @PostConstruct
-    public void init(){
-        this.captchaService = (CaptchaService) servletContext.getAttribute(CAPTCHA_SERVICE);
-    }
-
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    public UserService getUserService() {
-        return userService;
-    }
-
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String postRequest(HttpServletRequest request) throws ServletException, IOException {
+    public String postRequest(MultipartHttpServletRequest request) throws IOException {
         logger.debug(COMMAND_START);
         RegFormBean regRegFormBean = fill(request);
         Map<String, String> errorMap = validator.validate(regRegFormBean, request);
         HttpSession session = request.getSession();
-        if (request.getPart(PHOTO).getSize() == 0) {
+        if (request.getFile(PHOTO).isEmpty()) {
             errorMap.put(PHOTO, EMPTY_PHOTO_ERROR);
         }
         if (errorMap.isEmpty()) {
@@ -115,7 +116,6 @@ public class RegistrationServlet {
     }
 
     private void createCaptcha(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        long timeout = Long.parseLong(servletContext.getInitParameter(TIMEOUT));
         Captcha captcha = captchaService.generateCaptcha(timeout);
         String captchaId = new RandomStringGenerator().getSaltString();
         captchaService.setCaptcha(captchaId, captcha, request, response);
@@ -131,37 +131,5 @@ public class RegistrationServlet {
         regFormBean.setGender(request.getParameter(Messages.GENDER));
         regFormBean.setCaptchaNumbers(request.getParameter(Messages.CAPTCHA));
         return regFormBean;
-    }
-
-    public CaptchaService getCaptchaService() {
-        return captchaService;
-    }
-
-    public void setCaptchaService(CaptchaService captchaService) {
-        this.captchaService = captchaService;
-    }
-
-    public RegFormValidator getValidator() {
-        return validator;
-    }
-
-    public void setValidator(RegFormValidator validator) {
-        this.validator = validator;
-    }
-
-    public AvatarService getAvatarService() {
-        return avatarService;
-    }
-
-    public void setAvatarService(AvatarService avatarService) {
-        this.avatarService = avatarService;
-    }
-
-    public RegFormBean getRegFormBean() {
-        return regFormBean;
-    }
-
-    public void setRegFormBean(RegFormBean regFormBean) {
-        this.regFormBean = regFormBean;
     }
 }

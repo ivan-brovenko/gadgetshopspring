@@ -23,6 +23,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 
 public class ApplicationContext {
     private UserRepositoryImpl userRepositoryImpl;
@@ -36,6 +38,7 @@ public class ApplicationContext {
     private OrderService orderService;
     private OrderRepository orderRepository;
     private JdbcTemplate jdbcTemplate;
+
 
     public ApplicationContext() {
         this.validator = new RegFormValidator();

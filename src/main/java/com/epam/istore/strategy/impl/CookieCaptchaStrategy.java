@@ -4,8 +4,13 @@ package com.epam.istore.strategy.impl;
 import com.epam.istore.captcha.Captcha;
 import com.epam.istore.captcha.CaptchaContainer;
 import com.epam.istore.strategy.CaptchaStrategy;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
@@ -19,16 +24,19 @@ import java.util.concurrent.TimeUnit;
 
 import static com.epam.istore.messages.Messages.CAPTCHA_ID;
 
+@Component
+@Qualifier("cookie")
 public class CookieCaptchaStrategy implements CaptchaStrategy {
     private final static int MAX_AGE = 60 * 60 * 24;
+    @Autowired
+    @Setter
+    @Getter
     private CaptchaContainer captchaContainer;
+    @Value("60")
+    @Setter
+    @Getter
     private long timeout;
     private ScheduledExecutorService executorService;
-
-    public CookieCaptchaStrategy(CaptchaContainer captchaContainer, long timeout) {
-        this.captchaContainer = captchaContainer;
-        this.timeout = timeout;
-    }
 
     public String getId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();

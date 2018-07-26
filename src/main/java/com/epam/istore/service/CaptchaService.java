@@ -3,15 +3,26 @@ package com.epam.istore.service;
 import com.epam.istore.captcha.Captcha;
 import com.epam.istore.captcha.CaptchaGenerator;
 import com.epam.istore.strategy.CaptchaStrategy;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 public class CaptchaService {
+    @Autowired
+    @Qualifier("session")
+    @Getter
+    @Setter
     private CaptchaStrategy captchaStrategy;
     private CaptchaGenerator captchaGenerator;
+
 
     public CaptchaService(CaptchaStrategy captchaContainer) {
         this.captchaStrategy = captchaContainer;
