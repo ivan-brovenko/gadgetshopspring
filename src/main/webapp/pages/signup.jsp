@@ -20,7 +20,7 @@
 <div class="content">
     <div class="reg">
         <h2>Fill the form to register</h2>
-        <form action="/reg" id="regForm" method="post" onsubmit="return validate(this)" enctype="multipart/form-data">
+        <form action="/reg" id="regForm" method="post" onsubmit="return validate(this)">
             <label for="name">Type your name</label>
             <input type="text" id="name" name="name" value="${bean.name}"
                    class="${(not empty errors.name)?"redOutline":""}">

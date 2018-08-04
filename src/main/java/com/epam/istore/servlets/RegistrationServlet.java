@@ -44,7 +44,7 @@ import static com.epam.istore.messages.Messages.PHOTO;
 //@MultipartConfig(maxFileSize = 1024*1024*5)
 @Controller
 @RequestMapping("/reg")
-public class RegistrationServlet {
+public class  RegistrationServlet {
     private static final String ERRORS = "errors";
     private final static Logger logger = Logger.getRootLogger();
     @Autowired

@@ -29,6 +29,7 @@ $(".deleteButton").click(function () {
         type: "DELETE",
         url: "/basket?"+$.param({"productId":productId}),
         success:function (data) {
+            alert(data.totalCount +" "+ data.totalPrice)
             cartCount.text(data.totalCount);
             totalPrice.text(data.totalPrice);
             productToHide.css("display","none");
