@@ -16,7 +16,9 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
@@ -38,7 +40,7 @@ public class BasketResourceImpl implements BasketResource {
     private Map<String, Object> cartMap = new HashMap<>();
 
     @Override
-    public String postToBasket(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String postToBasket(HttpServletRequest request) throws IOException {
         int id = Integer.parseInt(request.getParameter(PRODUCT_ID));
         int count = Integer.parseInt(request.getParameter(PRODUCT_COUNT));
         Cart cart = getCart(request);
@@ -60,19 +62,18 @@ public class BasketResourceImpl implements BasketResource {
     }
 
     @Override
-    public String createBasketPage(HttpServletRequest request, HttpServletResponse response) {
+    public String createBasketPage(HttpServletRequest request) {
         Cart cart = getCart(request);
         request.setAttribute(BASKET_TOTAL_PRICE, cart.getTotalPrice());
         return PAGES_BASKET_JSP;
     }
 
     @Override
-    public String putToTheBasket(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        int id = Integer.parseInt(request.getParameter(PRODUCT_ID));
-        int count = Integer.parseInt(request.getParameter(PRODUCT_COUNT));
-        Product product = gadgetService.getProductById(id);
+    public String putToTheBasket(@ModelAttribute(PRODUCT_ID) int productId,
+                                 @ModelAttribute(PRODUCT_COUNT) int productCount, HttpServletRequest request) throws ServiceException {
+        Product product = gadgetService.getProductById(productId);
         Cart cart = getCart(request);
-        cart.addToCart(product, count);
+        cart.addToCart(product, productCount);
         return sendResponse(request.getSession(), cart);
     }
 

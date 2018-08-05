@@ -19,4 +19,10 @@ public class StringConstants {
     public static final String PAGES_BASKET_JSP = "/pages/basket.jsp";
     public static final String TOTAL_PRICE = "totalPrice";
     public static final String TOTAL_COUNT = "totalCount";
+
+    public final static String COMMAND_START = "Registration command start";
+    public final static String BEAN = "bean";
+    public final static String REG_SERVLET_LINK = "/reg";
+    public final static String SIGN_UP_PAGE_LINK = "/pages/signup.jsp";
+    public static final String ERRORS = "errors";
 }

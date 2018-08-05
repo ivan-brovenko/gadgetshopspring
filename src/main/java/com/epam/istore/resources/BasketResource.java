@@ -14,11 +14,11 @@ import java.io.IOException;
 public interface BasketResource {
 
     @RequestMapping(value = "/basket", method = RequestMethod.GET)
-    String createBasketPage(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    String createBasketPage(HttpServletRequest request) throws IOException;
 
     @RequestMapping(value = "/basket", method = RequestMethod.PUT)
     @ResponseBody
-    String putToTheBasket(HttpServletRequest request, HttpServletResponse response) throws ServiceException;
+    String putToTheBasket(int productId, int productCount, HttpServletRequest request) throws ServiceException;
 
     @RequestMapping(value = "/basket", method = RequestMethod.DELETE)
     @ResponseBody
@@ -26,5 +26,5 @@ public interface BasketResource {
 
     @RequestMapping(value = "/basket", method = RequestMethod.POST)
     @ResponseBody
-    String postToBasket(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    String postToBasket(HttpServletRequest request) throws IOException;
 }

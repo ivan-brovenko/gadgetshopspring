@@ -3,25 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <servlet>
-        <servlet-name>RServ</servlet-name>
-        <servlet-class>com.epam.istore.servlets.RegistrationServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <servlet-name>CaptchaServlet</servlet-name>
-        <servlet-class>com.epam.istore.servlets.CaptchaServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>CaptchaServlet</servlet-name>
-        <url-pattern>/cap</url-pattern>
-    </servlet-mapping>
-
-    <servlet-mapping>
-        <servlet-name>RServ</servlet-name>
-        <url-pattern>/reg</url-pattern>
-    </servlet-mapping>
 
     <!--<listener>-->
         <!--<listener-class>com.epam.istore.listener.ContextListener</listener-class>-->
