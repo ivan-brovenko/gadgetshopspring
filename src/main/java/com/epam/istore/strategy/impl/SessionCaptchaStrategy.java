@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Component
-@Qualifier("session")
 @Primary
 public class SessionCaptchaStrategy implements CaptchaStrategy {
     private final static String STUB_CAPTCHA_ID = "captcha";

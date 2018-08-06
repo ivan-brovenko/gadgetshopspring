@@ -16,18 +16,14 @@ import java.io.IOException;
 
 @Component
 public class CaptchaService {
-    @Autowired
-    @Qualifier("session")
-    @Getter
+
     @Setter
+    @Autowired
     private CaptchaStrategy captchaStrategy;
+
+    @Setter
+    @Autowired
     private CaptchaGenerator captchaGenerator;
-
-
-    public CaptchaService(CaptchaStrategy captchaContainer) {
-        this.captchaStrategy = captchaContainer;
-        this.captchaGenerator = new CaptchaGenerator();
-    }
 
     public String getId(HttpServletRequest request) {
         return captchaStrategy.getId(request);
