@@ -1,5 +1,7 @@
 package com.epam.istore.resources;
 
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -11,9 +13,9 @@ import java.io.IOException;
 
 public interface RegistrationResource {
 
-    @RequestMapping(value = "/reg", method = RequestMethod.GET)
+    @GetMapping("/reg")
     String createRegistrationPage(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
-    @RequestMapping(value = "/reg", method = RequestMethod.POST)
+    @PostMapping("/reg")
     String submitRegistration(File file,HttpServletRequest request) throws IOException;
 }

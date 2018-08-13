@@ -8,25 +8,20 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import static com.epam.istore.messages.Messages.CAPTCHA_ID;
-import static com.epam.istore.messages.Messages.CAPTCHA_SERVICE;
+import static com.epam.istore.util.StringConstants.*;
 
-@Controller
+@RestController
 public class CaptchaResourceImpl implements CaptchaResource {
-    private final static String IMAGE_CONTENT_TYPE = "image/png";
-    private final static String PNG = "png";
 
-    @Setter
     @Autowired
     private CaptchaService captchaService;
 

@@ -1,74 +1,60 @@
-package com.epam.istore.servlets;
+package com.epam.istore.resources.impl;
 
 import com.epam.istore.bean.OrderBean;
-import com.epam.istore.cart.Cart;
-import com.epam.istore.context.ApplicationContext;
-import com.epam.istore.converter.impl.OrderConverter;
 import com.epam.istore.bean.ProductInCartBean;
+import com.epam.istore.cart.Cart;
+import com.epam.istore.converter.impl.OrderConverter;
 import com.epam.istore.entity.Order;
 import com.epam.istore.entity.OrderedProduct;
 import com.epam.istore.entity.User;
+import com.epam.istore.resources.OrderResource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.epam.istore.messages.Messages.APP_CONTEXT;
 import static com.epam.istore.messages.Messages.USER_ATTRIBUTE_NAME;
+import static com.epam.istore.util.StringConstants.*;
 
+@Controller
+public class OrderResourceImpl implements OrderResource {
 
-@WebServlet(name = "OrderServlet", urlPatterns = "/order")
-public class OrderServlet extends HttpServlet {
-    private static final String REFERER = "referer";
-    private static final String LOG_IN_ERROR = "Log in before making an order!!!";
-    private static final String ERROR_LOG_IN_MESSAGE = "errorLogInMessage";
-    private static final String ORDER = "order";
-    private static final String CONFIRM = "/confirm";
-    private static final String PAGES_ORDER_JSP = "/pages/order.jsp";
-    private static final String SHIP = "ship";
-    private static final String BILL = "bill";
-    private static final String CARD_NUMBER = "cardNumber";
-    private static final String CVV = "cvv";
-    private static final String ADDRESS = "address";
-    private static final String CART = "cart";
-    private static final String ERRORS = "errors";
-    private ApplicationContext applicationContext;
     private Map<String,String> errorMap;
-    private OrderConverter orderConverter;
     private OrderBean orderBean;
 
-    @Override
-    public void init() throws ServletException {
-        this.applicationContext = (ApplicationContext) getServletContext().getAttribute(APP_CONTEXT);
-        this.orderConverter = applicationContext.getOrderConverter();
+    @Autowired
+    private OrderConverter orderConverter;
+
+    @PostConstruct
+    public void init() {
         this.orderBean = new OrderBean();
         this.errorMap = new HashMap<>();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    public String submitOrder(HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (getUser(session) == null) {
             errorMap.put(ERROR_LOG_IN_MESSAGE,LOG_IN_ERROR);
             session.setAttribute(ERRORS,errorMap);
-            response.sendRedirect(request.getHeader(REFERER));
-            return;
+            return "redirect:"+request.getHeader(REFERER);
         }
         fillRequest(request);
         Order order = orderConverter.convert(orderBean);
         session.setAttribute(ORDER,order);
-        response.sendRedirect(CONFIRM);
+        return "redirect"+CONFIRM;
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher(PAGES_ORDER_JSP).forward(request, response);
+    @Override
+    public String createOrderPage() {
+        return PAGES_ORDER_JSP;
     }
 
     private OrderBean fillRequest(HttpServletRequest request){

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,27 +41,21 @@ public class RegistrationResourceImpl implements RegistrationResource {
     private final static Logger logger = Logger.getRootLogger();
 
     @Autowired
-    @Setter
     private CaptchaService captchaService;
 
     @Autowired
-    @Setter
     private RegFormValidator validator;
 
     @Autowired
-    @Setter
     private AvatarService avatarService;
 
     @Value("60")
     private long timeout;
 
     @Autowired
-    @Setter
-    @Getter
     private RegFormBean regFormBean;
 
     @Autowired
-    @Setter
     private UserService userService;
 
     private String addUserToUserService(UserService userService, RegFormBean regRegFormBean, HttpSession session, Map<String, String> errorMap) throws IOException {

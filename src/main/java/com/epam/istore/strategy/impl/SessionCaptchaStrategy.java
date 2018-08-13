@@ -11,8 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@Component
-@Primary
+@Component("session")
 public class SessionCaptchaStrategy implements CaptchaStrategy {
     private final static String STUB_CAPTCHA_ID = "captcha";
 

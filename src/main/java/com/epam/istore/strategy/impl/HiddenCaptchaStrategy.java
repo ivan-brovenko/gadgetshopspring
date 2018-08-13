@@ -21,15 +21,12 @@ import java.util.concurrent.TimeUnit;
 
 import static com.epam.istore.messages.Messages.HIDDEN_ID;
 
-@Component
-@Qualifier("hidden")
+@Component("hidden")
 public class HiddenCaptchaStrategy implements CaptchaStrategy {
+
     @Autowired
-    @Getter
-    @Setter
     private CaptchaContainer captchaContainer;
-    @Getter
-    @Setter
+
     @Value("60")
     private long timeout;
     private ScheduledExecutorService executorService;

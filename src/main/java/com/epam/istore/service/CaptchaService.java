@@ -17,11 +17,10 @@ import java.io.IOException;
 @Component
 public class CaptchaService {
 
-    @Setter
     @Autowired
+    @Qualifier("session")
     private CaptchaStrategy captchaStrategy;
 
-    @Setter
     @Autowired
     private CaptchaGenerator captchaGenerator;
 

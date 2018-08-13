@@ -12,10 +12,11 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
 import java.sql.*;
 
-
+@Component
 public class OrderRepositoryImpl implements OrderRepository {
     private final static String ADD_ORDER = "INSERT INTO gadget_shop.order VALUES (DEFAULT ,DEFAULT ,DEFAULT ,?,?,?,?,?,?)";
     private final static String ADD_ITEM = "INSERT INTO gadget_shop.order_gadget VALUES (? ,?,?,?)";

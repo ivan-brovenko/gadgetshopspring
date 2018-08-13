@@ -25,4 +25,21 @@ public class StringConstants {
     public final static String REG_SERVLET_LINK = "/reg";
     public final static String SIGN_UP_PAGE_LINK = "/pages/signup.jsp";
     public static final String ERRORS = "errors";
+
+    public final static String PNG = "png";
+
+    public static final String PAGES_SUCCESS_ORDER_JSP = "/pages/success_order.jsp";
+    public static final String CONFIRM = "/confirm";
+    public static final String PAGES_CONFIRM_JSP = "/pages/confirm.jsp";
+
+    public static final String REFERER = "referer";
+    public static final String LOG_IN_ERROR = "Log in before making an order!!!";
+    public static final String ERROR_LOG_IN_MESSAGE = "errorLogInMessage";
+    public static final String ORDER = "order";
+    public static final String PAGES_ORDER_JSP = "/pages/order.jsp";
+    public static final String SHIP = "ship";
+    public static final String BILL = "bill";
+    public static final String CARD_NUMBER = "cardNumber";
+    public static final String CVV = "cvv";
+    public static final String ADDRESS = "address";
 }

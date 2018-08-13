@@ -24,17 +24,13 @@ import java.util.concurrent.TimeUnit;
 
 import static com.epam.istore.messages.Messages.CAPTCHA_ID;
 
-@Component
-@Qualifier("cookie")
+@Component("cookie")
 public class CookieCaptchaStrategy implements CaptchaStrategy {
     private final static int MAX_AGE = 60 * 60 * 24;
     @Autowired
-    @Setter
-    @Getter
     private CaptchaContainer captchaContainer;
+
     @Value("60")
-    @Setter
-    @Getter
     private long timeout;
     private ScheduledExecutorService executorService;
 

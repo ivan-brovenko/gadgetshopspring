@@ -1,7 +1,6 @@
 package com.epam.istore.servlets;
 
 import com.epam.istore.cart.Cart;
-import com.epam.istore.context.ApplicationContext;
 import com.epam.istore.entity.Product;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.service.GadgetService;
@@ -11,11 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +21,6 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 

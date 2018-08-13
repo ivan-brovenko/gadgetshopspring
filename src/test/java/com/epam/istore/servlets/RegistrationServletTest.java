@@ -3,7 +3,6 @@ package com.epam.istore.servlets;
 import com.epam.istore.bean.RegFormBean;
 import com.epam.istore.captcha.Captcha;
 import com.epam.istore.captcha.CaptchaGenerator;
-import com.epam.istore.context.ApplicationContext;
 import com.epam.istore.entity.User;
 import com.epam.istore.exception.UserServiceException;
 import com.epam.istore.service.AvatarService;

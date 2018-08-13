@@ -1,7 +1,6 @@
 package com.epam.istore.servlets;
 
 import com.epam.istore.bean.LogInFormBean;
-import com.epam.istore.context.ApplicationContext;
 import com.epam.istore.entity.User;
 import com.epam.istore.exception.AuthenticationException;
 import com.epam.istore.service.AvatarService;

@@ -18,12 +18,9 @@ import javax.servlet.http.HttpSession;
 @Service
 public class UserServiceImpl implements UserService {
     private final static Logger LOGGER = Logger.getRootLogger();
-    private UserRepositoryImpl repository;
 
     @Autowired
-    public UserServiceImpl(UserRepositoryImpl repository) {
-        this.repository = repository;
-    }
+    private UserRepositoryImpl repository;
 
     @Transactional
     public boolean add(User user) throws UserServiceException {

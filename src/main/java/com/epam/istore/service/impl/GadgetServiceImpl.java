@@ -12,6 +12,7 @@ import com.epam.istore.exception.ServiceException;
 import com.epam.istore.repository.impl.GadgetRepositoryImpl;
 import com.epam.istore.service.GadgetService;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +22,11 @@ import java.util.List;
 
 @Service
 public class GadgetServiceImpl implements GadgetService {
+
+    @Autowired
     private GadgetRepositoryImpl gadgetRepository;
     private ProductQueryBuilder productQueryBuilder = new ProductQueryBuilder();
     private final static Logger LOGGER = Logger.getRootLogger();
-
-    public GadgetServiceImpl(GadgetRepositoryImpl gadgetRepository) {
-        this.gadgetRepository = gadgetRepository;
-    }
 
     @Transactional
     @Override

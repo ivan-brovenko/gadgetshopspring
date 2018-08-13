@@ -1,6 +1,5 @@
 package com.epam.istore.servlets;
 
-import com.epam.istore.context.ApplicationContext;
 import com.epam.istore.entity.Order;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.service.OrderService;
@@ -19,7 +18,6 @@ import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

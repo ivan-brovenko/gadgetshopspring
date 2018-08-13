@@ -5,10 +5,13 @@ import com.epam.istore.bean.OrderBean;
 import com.epam.istore.converter.Converter;
 import com.epam.istore.entity.Order;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class OrderConverter implements Converter<OrderBean, Order> {
+
     @Override
     public Order convert(OrderBean parameterToConvert) {
         Order order = new Order();
