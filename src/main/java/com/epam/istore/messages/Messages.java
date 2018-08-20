@@ -63,6 +63,6 @@ public class Messages {
     public static final String COUNTRIES = "countries";
     public static final String NUMBER_OF_PAGES = "nOfPages";
     public static final String RECORDS_PER_PAGE = "recordsPerPage";
-    public static final String PAGES_PRODUCTS_JSP = "/pages/products.jsp";
+    public static final String PAGES_PRODUCTS_JSP = "products";
 
 }

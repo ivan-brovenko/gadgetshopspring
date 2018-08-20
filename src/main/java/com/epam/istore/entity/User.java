@@ -1,16 +1,27 @@
 package com.epam.istore.entity;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
     private String name;
     private String surname;
     private String email;
     private String password;
     private boolean gender;
     private String role;
-    private int id;
 
-    public User() {
-    }
+    public User(){}
 
     public User(String name, String surname, String email, String password, boolean gender) {
         this.name = name;
@@ -74,34 +85,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof User)){
-            return false;
-        }
-        User user = (User) o;
-
-        return email != null ? email.equals(user.email) : user.email == null;
-    }
-
-    @Override
-    public int hashCode() {
-        return email != null ? email.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", gender=" + gender +
-                '}';
     }
 }
