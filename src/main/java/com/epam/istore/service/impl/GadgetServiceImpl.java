@@ -11,6 +11,7 @@ import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.repository.impl.GadgetRepositoryImpl;
 import com.epam.istore.service.GadgetService;
+import lombok.extern.log4j.Log4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,12 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Log4j
 public class GadgetServiceImpl implements GadgetService {
 
     @Autowired
     private GadgetRepositoryImpl gadgetRepository;
     private ProductQueryBuilder productQueryBuilder = new ProductQueryBuilder();
-    private final static Logger LOGGER = Logger.getRootLogger();
 
     @Transactional
     @Override
@@ -35,7 +36,7 @@ public class GadgetServiceImpl implements GadgetService {
             String query = productQueryBuilder.limitFilter(productFormBean,productQueryBuilder.build(productFormBean));
             return gadgetRepository.getFiltered(query);
         } catch (RepositoryException e) {
-            LOGGER.error(e);
+            log.error(e);
             throw new ServiceException(e);
         }
     }
@@ -46,7 +47,7 @@ public class GadgetServiceImpl implements GadgetService {
         try {
             return gadgetRepository.getNumberOfRows(query);
         } catch (RepositoryException e) {
-            LOGGER.error(e);
+            log.error(e);
             throw new ServiceException(e);
         }
     }
@@ -57,7 +58,7 @@ public class GadgetServiceImpl implements GadgetService {
         try {
             return gadgetRepository.getAllCountries();
         } catch (RepositoryException e) {
-            LOGGER.error(e);
+            log.error(e);
             throw new ServiceException(e);
         }
     }
@@ -68,7 +69,7 @@ public class GadgetServiceImpl implements GadgetService {
         try {
             return gadgetRepository.getAllCategories();
         } catch (RepositoryException e) {
-            LOGGER.error(e);
+            log.error(e);
             throw new ServiceException(e);
         }
     }
@@ -101,7 +102,7 @@ public class GadgetServiceImpl implements GadgetService {
         try {
             return gadgetRepository.getProductById(productId);
         } catch (RepositoryException e) {
-            LOGGER.error(e);
+            log.error(e);
             throw new ServiceException(e);
         }
     }

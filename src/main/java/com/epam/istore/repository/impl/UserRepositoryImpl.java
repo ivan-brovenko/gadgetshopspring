@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     private void insertUser(User user) throws RepositoryException {
-        jdbcTemplate.update(ADD_USER, user.getName(), user.getSurname(), user.getEmail(), user.getPassword(), user.isMale());
+        jdbcTemplate.update(ADD_USER, user.getName(), user.getSurname(), user.getEmail(), user.getPassword(), user.isGender());
     }
 
     public boolean containsUser(User user) throws RepositoryException {
