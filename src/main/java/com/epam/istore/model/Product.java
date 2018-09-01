@@ -1,4 +1,4 @@
-package com.epam.istore.entity;
+package com.epam.istore.model;
 
 
 public class Product {

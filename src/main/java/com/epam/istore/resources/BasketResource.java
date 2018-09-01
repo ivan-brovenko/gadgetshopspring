@@ -15,11 +15,14 @@ public interface BasketResource {
     String createBasketPage(HttpServletRequest request) throws IOException;
 
     @PutMapping("/basket")
+    @ResponseBody
     String putToTheBasket(int productId, int productCount, HttpServletRequest request) throws ServiceException;
 
     @DeleteMapping("/basket")
+    @ResponseBody
     String deleteFromBasket(HttpServletRequest request) throws ServletException, IOException;
 
     @PostMapping("/basket")
+    @ResponseBody
     String postToBasket(HttpServletRequest request) throws IOException;
 }

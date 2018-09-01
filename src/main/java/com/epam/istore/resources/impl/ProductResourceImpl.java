@@ -3,22 +3,18 @@ package com.epam.istore.resources.impl;
 
 import com.epam.istore.bean.ProductFormBean;
 import com.epam.istore.dto.ProductListDTO;
-import com.epam.istore.entity.Category;
-import com.epam.istore.entity.ProducerCountry;
-import com.epam.istore.entity.Product;
+import com.epam.istore.model.Category;
+import com.epam.istore.model.ProducerCountry;
+import com.epam.istore.model.Product;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.messages.Messages;
 import com.epam.istore.resources.ProductResource;
 import com.epam.istore.service.GadgetService;
-import com.epam.istore.util.StringConstants;
 import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;

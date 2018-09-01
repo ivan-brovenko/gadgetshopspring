@@ -1,8 +1,5 @@
-package com.epam.istore.entity;
+package com.epam.istore.model;
 
-
-import java.util.HashMap;
-import java.util.Map;
 
 public final class OrderedProduct {
     private final int productId;

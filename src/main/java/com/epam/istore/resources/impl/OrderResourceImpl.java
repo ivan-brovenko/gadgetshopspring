@@ -4,13 +4,12 @@ import com.epam.istore.bean.OrderBean;
 import com.epam.istore.bean.ProductInCartBean;
 import com.epam.istore.cart.Cart;
 import com.epam.istore.converter.impl.OrderConverter;
-import com.epam.istore.entity.Order;
-import com.epam.istore.entity.OrderedProduct;
-import com.epam.istore.entity.User;
+import com.epam.istore.model.Order;
+import com.epam.istore.model.OrderedProduct;
+import com.epam.istore.model.User;
 import com.epam.istore.resources.OrderResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;

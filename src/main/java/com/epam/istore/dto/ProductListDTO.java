@@ -1,6 +1,6 @@
 package com.epam.istore.dto;
 
-import com.epam.istore.entity.Product;
+import com.epam.istore.model.Product;
 
 import java.util.List;
 

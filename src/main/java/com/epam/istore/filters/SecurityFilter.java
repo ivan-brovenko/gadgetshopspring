@@ -1,7 +1,7 @@
 package com.epam.istore.filters;
 
 import com.epam.istore.bean.ConstraintBean;
-import com.epam.istore.entity.User;
+import com.epam.istore.model.User;
 import com.epam.istore.security.AccessProvider;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.apache.log4j.Logger;
@@ -40,10 +40,10 @@ public class SecurityFilter implements Filter {
             response.sendRedirect(REGISTRATION_PAGE);
             return;
         }
-        if (!accessProvider.isRoleBindsWithCurrentURL(user.getRole(), currentURL)) {
-            response.sendRedirect(ERROR_ACCESS_PAGE);
-            return;
-        }
+//        if (!accessProvider.isRoleBindsWithCurrentURL(user.getRole(), currentURL)) {
+//            response.sendRedirect(ERROR_ACCESS_PAGE);
+//            return;
+//        }
         chain.doFilter(req, resp);
     }
 

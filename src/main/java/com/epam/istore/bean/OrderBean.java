@@ -1,7 +1,7 @@
 package com.epam.istore.bean;
 
 
-import com.epam.istore.entity.OrderedProduct;
+import com.epam.istore.model.OrderedProduct;
 
 import java.util.List;
 

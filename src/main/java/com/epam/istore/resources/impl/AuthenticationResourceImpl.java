@@ -1,7 +1,7 @@
 package com.epam.istore.resources.impl;
 
 import com.epam.istore.bean.LogInFormBean;
-import com.epam.istore.entity.User;
+import com.epam.istore.model.User;
 import com.epam.istore.exception.AuthenticationException;
 import com.epam.istore.resources.AuthenticationResource;
 import com.epam.istore.service.AvatarService;
@@ -9,7 +9,6 @@ import com.epam.istore.service.UserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

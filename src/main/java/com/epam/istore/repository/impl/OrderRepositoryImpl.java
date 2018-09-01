@@ -1,17 +1,10 @@
 package com.epam.istore.repository.impl;
 
-import com.epam.istore.connection.ConnectionHolder;
-import com.epam.istore.entity.Order;
-import com.epam.istore.entity.OrderedProduct;
-import com.epam.istore.exception.RepositoryException;
+import com.epam.istore.model.Order;
+import com.epam.istore.model.OrderedProduct;
 import com.epam.istore.repository.OrderRepository;
-import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;

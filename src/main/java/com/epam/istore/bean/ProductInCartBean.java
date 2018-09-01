@@ -1,7 +1,7 @@
 package com.epam.istore.bean;
 
 
-import com.epam.istore.entity.Product;
+import com.epam.istore.model.Product;
 
 public class ProductInCartBean {
     private Product product;

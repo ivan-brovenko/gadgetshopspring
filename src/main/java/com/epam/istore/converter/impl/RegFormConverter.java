@@ -2,7 +2,7 @@ package com.epam.istore.converter.impl;
 
 import com.epam.istore.bean.RegFormBean;
 import com.epam.istore.converter.Converter;
-import com.epam.istore.entity.User;
+import com.epam.istore.model.User;
 import com.epam.istore.util.Genders;
 
 

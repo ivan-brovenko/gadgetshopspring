@@ -1,15 +1,13 @@
 package com.epam.istore.service.impl;
 
 
-import com.epam.istore.entity.Order;
+import com.epam.istore.model.Order;
 import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.repository.OrderRepository;
 import com.epam.istore.service.OrderService;
 import org.apache.log4j.Logger;
-import com.epam.istore.transaction.TransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,14 +1,15 @@
 package com.epam.istore.repository;
 
-import com.epam.istore.entity.User;
+import com.epam.istore.model.User;
 import com.epam.istore.exception.RepositoryException;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 
 public interface UserRepository {
-    boolean add(User user) throws RepositoryException;
 
-    boolean containsUser(User user) throws RepositoryException;
+    void add(User user) ;
 
-    User getUserByLoginAndPassword(String login, String password) throws RepositoryException;
+    List<User> getUsers();
 }

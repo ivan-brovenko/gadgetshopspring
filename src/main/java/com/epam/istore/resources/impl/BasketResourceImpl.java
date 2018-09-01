@@ -2,7 +2,7 @@ package com.epam.istore.resources.impl;
 
 
 import com.epam.istore.cart.Cart;
-import com.epam.istore.entity.Product;
+import com.epam.istore.model.Product;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.resources.BasketResource;
 import com.epam.istore.service.GadgetService;
@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -84,6 +83,7 @@ public class BasketResourceImpl implements BasketResource {
         putCountAndPriceFromCartToMap(cartMap, cart);
         session.setAttribute(CART, cart);
         session.setAttribute(CART_BEAN, cartMap);
+        System.out.println(new Gson().toJson(cart));
         return new Gson().toJson(cart);
     }
 }

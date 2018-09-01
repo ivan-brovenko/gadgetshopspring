@@ -3,9 +3,9 @@ package com.epam.istore.service;
 
 import com.epam.istore.bean.ProductFormBean;
 import com.epam.istore.dto.ProductListDTO;
-import com.epam.istore.entity.Category;
-import com.epam.istore.entity.Product;
-import com.epam.istore.entity.ProducerCountry;
+import com.epam.istore.model.Category;
+import com.epam.istore.model.Product;
+import com.epam.istore.model.ProducerCountry;
 import com.epam.istore.exception.ServiceException;
 
 import java.util.List;

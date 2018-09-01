@@ -1,14 +1,10 @@
-package com.epam.istore.entity;
+package com.epam.istore.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "user")
 @Setter
 @Getter
 @NoArgsConstructor
@@ -34,5 +30,7 @@ public class User {
     @NonNull
     private boolean gender;
 
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
 }

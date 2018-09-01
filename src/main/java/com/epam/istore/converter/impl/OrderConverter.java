@@ -3,7 +3,7 @@ package com.epam.istore.converter.impl;
 
 import com.epam.istore.bean.OrderBean;
 import com.epam.istore.converter.Converter;
-import com.epam.istore.entity.Order;
+import com.epam.istore.model.Order;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 

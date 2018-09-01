@@ -2,13 +2,20 @@ package com.epam.istore.cart;
 
 
 import com.epam.istore.bean.ProductInCartBean;
-import com.epam.istore.entity.Product;
+import com.epam.istore.model.Product;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Cart {
     private Map<Product, Integer> products = new ConcurrentHashMap<>();
+    private Integer totalCount;
+    private Double totalPrice;
+
+    public Cart() {
+        totalCount = products.size();
+        totalPrice = products.entrySet().stream().mapToDouble((entry) -> entry.getKey().getPrice() * entry.getValue()).sum();
+    }
 
     public void addToCart(Product product, int count) {
         if (products.containsKey(product)) {
@@ -29,7 +36,7 @@ public class Cart {
         }
     }
 
-    private boolean containsProductWithId(int productId){
+    private boolean containsProductWithId(int productId) {
         return products.keySet().stream().anyMatch(product -> product.getId() == productId);
     }
 

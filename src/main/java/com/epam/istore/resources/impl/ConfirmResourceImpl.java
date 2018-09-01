@@ -1,6 +1,6 @@
 package com.epam.istore.resources.impl;
 
-import com.epam.istore.entity.Order;
+import com.epam.istore.model.Order;
 import com.epam.istore.exception.ServiceException;
 import com.epam.istore.resources.ConfirmResource;
 import com.epam.istore.service.OrderService;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

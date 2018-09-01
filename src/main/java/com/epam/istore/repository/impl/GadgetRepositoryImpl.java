@@ -1,24 +1,18 @@
 package com.epam.istore.repository.impl;
 
 
-import com.epam.istore.connection.ConnectionHolder;
-import com.epam.istore.entity.Category;
-import com.epam.istore.entity.Product;
-import com.epam.istore.entity.ProducerCountry;
-import com.epam.istore.entity.User;
+import com.epam.istore.model.Category;
+import com.epam.istore.model.Product;
+import com.epam.istore.model.ProducerCountry;
 import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.repository.GadgetRepository;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

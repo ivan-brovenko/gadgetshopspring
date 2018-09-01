@@ -1,9 +1,9 @@
 package com.epam.istore.repository;
 
 
-import com.epam.istore.entity.Category;
-import com.epam.istore.entity.Product;
-import com.epam.istore.entity.ProducerCountry;
+import com.epam.istore.model.Category;
+import com.epam.istore.model.Product;
+import com.epam.istore.model.ProducerCountry;
 import com.epam.istore.exception.RepositoryException;
 
 import java.util.List;
