@@ -1,24 +1,23 @@
 package com.epam.istore.model;
 
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity(name = "category")
+@Setter
+@Getter
 public class Category {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
+    @Column(name = "category_name")
     private String categoryName;
-    private int id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
+    @OneToMany(mappedBy = "category")
+    private Set<Product> products;
 }

@@ -2,32 +2,31 @@ package com.epam.istore.repository.impl;
 
 
 import com.epam.istore.model.User;
-import com.epam.istore.exception.RepositoryException;
-import com.epam.istore.messages.Messages;
 import com.epam.istore.repository.UserRepository;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.List;
-import java.util.Objects;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
+
     @Autowired
-    private Session session;
+    private EntityManagerFactory entityManagerFactory;
 
     @Override
     public void add(User user) {
-        session.save(user);
+        createEntityManager().persist(user);
     }
 
     @Override
-    public List<User> getUsers(){
-        return session.createQuery("from user").list();
+    public List<User> getUsers() {
+        return createEntityManager().createQuery("from user").getResultList();
+    }
+
+    private EntityManager createEntityManager() {
+        return entityManagerFactory.createEntityManager();
     }
 }

@@ -17,26 +17,24 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpSession;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository repository;
 
-    @Transactional
     public void add(User user) {
         repository.add(user);
     }
 
-    @Transactional
     public boolean containsUser(User user) {
         return repository.getUsers().contains(user);
     }
 
-    @Transactional
     public User getAuthenticatedUser(String login, String password) {
         return repository.getUsers()
                 .stream()
-                .filter(user->user.getEmail().equals(login) &&
+                .filter(user -> user.getEmail().equals(login) &&
                         user.getPassword().equals(password))
                 .findFirst().get();
     }

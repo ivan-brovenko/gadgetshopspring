@@ -14,6 +14,8 @@ import com.epam.istore.service.GadgetService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -21,59 +23,36 @@ import java.util.List;
 
 @Service
 @Log4j
+@Transactional
 public class GadgetServiceImpl implements GadgetService {
 
     @Autowired
     private GadgetRepositoryImpl gadgetRepository;
     private ProductQueryBuilder productQueryBuilder = new ProductQueryBuilder();
 
-    @Transactional
     @Override
-    public List<Product> getFiltered(ProductFormBean productFormBean) throws ServiceException {
-        try {
-            String query = productQueryBuilder.limitFilter(productFormBean,productQueryBuilder.build(productFormBean));
-            return gadgetRepository.getFiltered(query);
-        } catch (RepositoryException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }
-    }
-
-    @Transactional
-    @Override
-    public int getNumberOfRows(String query) throws ServiceException {
-        try {
-            return gadgetRepository.getNumberOfRows(query);
-        } catch (RepositoryException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }
-    }
-
-    @Transactional
-    @Override
-    public List<ProducerCountry> getAllCountries() throws ServiceException {
-        try {
-            return gadgetRepository.getAllCountries();
-        } catch (RepositoryException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }
-    }
-
-    @Transactional
-    @Override
-    public List<Category> getAllCategories() throws ServiceException {
-        try {
-            return gadgetRepository.getAllCategories();
-        } catch (RepositoryException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }
+    public List<Product> getFiltered(ProductFormBean productFormBean) {
+        String query = productQueryBuilder.limitFilter(productFormBean, productQueryBuilder.build(productFormBean));
+        return gadgetRepository.getFiltered(query);
     }
 
     @Override
-    public int getNumberOfPages(ProductFormBean productFormBean) throws ServiceException {
+    public int getNumberOfRows(String query) {
+        return gadgetRepository.getNumberOfRows(query);
+    }
+
+    @Override
+    public List<ProducerCountry> getAllCountries() {
+        return gadgetRepository.getAllCountries();
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        return gadgetRepository.getAllCategories();
+    }
+
+    @Override
+    public int getNumberOfPages(ProductFormBean productFormBean) {
         String unfiltered = productQueryBuilder.build(productFormBean);
         double recordsPrePage = Integer.parseInt(productFormBean.getProductLimit());
         double rows = getNumberOfRows(unfiltered);
@@ -81,10 +60,10 @@ public class GadgetServiceImpl implements GadgetService {
     }
 
     @Override
-    public ProductListDTO getProductListDTO(ProductFormBean productFormBean) throws ServiceException {
+    public ProductListDTO getProductListDTO(ProductFormBean productFormBean) {
         ProductListDTO productListDTO = new ProductListDTO();
         int numberOfPages = getNumberOfPages(productFormBean);
-        if (numberOfPages!=0 && numberOfPages >= Integer.parseInt(productFormBean.getCurrentPage())){
+        if (numberOfPages != 0 && numberOfPages >= Integer.parseInt(productFormBean.getCurrentPage())) {
             productListDTO.setNumberOfPages(numberOfPages);
             productListDTO.setProducts(getFiltered(productFormBean));
         } else {
@@ -94,15 +73,9 @@ public class GadgetServiceImpl implements GadgetService {
         return productListDTO;
     }
 
-    @Transactional
     @Override
-    public Product getProductById(int productId) throws ServiceException {
-        try {
-            return gadgetRepository.getProductById(productId);
-        } catch (RepositoryException e) {
-            log.error(e);
-            throw new ServiceException(e);
-        }
+    public Product getProductById(int productId){
+        return gadgetRepository.getProductById(productId);
     }
 
 }

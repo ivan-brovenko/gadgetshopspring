@@ -1,74 +1,31 @@
 package com.epam.istore.model;
 
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity(name = "gadget")
+@Setter
+@Getter
 public class Product {
-    private Category category;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+
     private String name;
+
     private double price;
+
     private int memorySize;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "producer_country_id")
     private ProducerCountry producerCountry;
-    private int id;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public int getMemorySize() {
-        return memorySize;
-    }
-
-    public void setMemorySize(int memorySize) {
-        this.memorySize = memorySize;
-    }
-
-    public ProducerCountry getProducerCountry() {
-        return producerCountry;
-    }
-
-    public void setProducerCountry(ProducerCountry producerCountry) {
-        this.producerCountry = producerCountry;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-
-        Product product = (Product) o;
-
-        return id == product.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
 }
