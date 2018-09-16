@@ -3,7 +3,7 @@ package com.epam.istore.exception;
 
 import java.security.PrivilegedActionException;
 
-public class AuthenticationException extends Exception {
+public class AuthenticationException extends RuntimeException {
     /**
      * Constructs a new exception with {@code null} as its detail message.
      * The cause is not initialized, and may subsequently be initialized by a

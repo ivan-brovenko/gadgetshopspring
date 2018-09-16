@@ -4,7 +4,6 @@ package com.epam.istore.repository.impl;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
 import com.epam.istore.model.ProducerCountry;
-import com.epam.istore.exception.RepositoryException;
 import com.epam.istore.repository.GadgetRepository;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;

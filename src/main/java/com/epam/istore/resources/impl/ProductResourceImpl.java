@@ -6,7 +6,6 @@ import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.ProducerCountry;
 import com.epam.istore.model.Product;
-import com.epam.istore.exception.ServiceException;
 import com.epam.istore.messages.Messages;
 import com.epam.istore.resources.ProductResource;
 import com.epam.istore.service.GadgetService;
@@ -40,21 +39,17 @@ public class ProductResourceImpl implements ProductResource {
 
     @Override
     public String createProductPage(HttpServletRequest request) {
-        try {
-            setAttributesFromPreviousRequest(request);
-            fill(request);
-            ProductListDTO productListDTO = gadgetService.getProductListDTO(productFormBean);
-            int numberOfPages = productListDTO.getNumberOfPages();
-            List<Product> products = productListDTO.getProducts();
-            request.setAttribute(GADGETS, products);
-            List<Category> categories = gadgetService.getAllCategories();
-            request.setAttribute(CATEGORIES, categories);
-            List<ProducerCountry> producerCountries = gadgetService.getAllCountries();
-            String urlListOfAttributes = validateQueryString(request.getQueryString());
-            setAttributesToRequest(request, productFormBean, numberOfPages, producerCountries, urlListOfAttributes);
-        } catch (ServiceException e) {
-            LOGGER.error(e);
-        }
+        setAttributesFromPreviousRequest(request);
+        fill(request);
+        ProductListDTO productListDTO = gadgetService.getProductListDTO(productFormBean);
+        int numberOfPages = productListDTO.getNumberOfPages();
+        List<Product> products = productListDTO.getProducts();
+        request.setAttribute(GADGETS, products);
+        List<Category> categories = gadgetService.getAllCategories();
+        request.setAttribute(CATEGORIES, categories);
+        List<ProducerCountry> producerCountries = gadgetService.getAllCountries();
+        String urlListOfAttributes = validateQueryString(request.getQueryString());
+        setAttributesToRequest(request, productFormBean, numberOfPages, producerCountries, urlListOfAttributes);
         return PAGES_PRODUCTS_JSP;
     }
 

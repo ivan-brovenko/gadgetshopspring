@@ -6,23 +6,22 @@ import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
 import com.epam.istore.model.ProducerCountry;
-import com.epam.istore.exception.ServiceException;
 
 import java.util.List;
 
 public interface GadgetService {
-    List<Product> getFiltered(ProductFormBean productFormBean) throws ServiceException;
+    List<Product> getFiltered(ProductFormBean productFormBean);
 
-    int getNumberOfRows(String query) throws ServiceException;
+    int getNumberOfRows(String query);
 
-    List<ProducerCountry> getAllCountries() throws ServiceException;
+    List<ProducerCountry> getAllCountries();
 
-    List<Category> getAllCategories() throws ServiceException;
+    List<Category> getAllCategories();
 
-    int getNumberOfPages(ProductFormBean productFormBean) throws ServiceException;
+    int getNumberOfPages(ProductFormBean productFormBean);
 
-    ProductListDTO getProductListDTO(ProductFormBean productFormBean) throws ServiceException;
+    ProductListDTO getProductListDTO(ProductFormBean productFormBean);
 
-    Product getProductById(int productId) throws ServiceException;
+    Product getProductById(int productId);
 
 }

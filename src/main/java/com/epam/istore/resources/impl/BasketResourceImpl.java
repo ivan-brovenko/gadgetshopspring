@@ -3,7 +3,6 @@ package com.epam.istore.resources.impl;
 
 import com.epam.istore.cart.Cart;
 import com.epam.istore.model.Product;
-import com.epam.istore.exception.ServiceException;
 import com.epam.istore.resources.BasketResource;
 import com.epam.istore.service.GadgetService;
 import com.google.gson.Gson;
@@ -60,7 +59,7 @@ public class BasketResourceImpl implements BasketResource {
 
     @Override
     public String putToTheBasket(@ModelAttribute(PRODUCT_ID) int productId,
-                                 @ModelAttribute(PRODUCT_COUNT) int productCount, HttpServletRequest request) throws ServiceException {
+                                 @ModelAttribute(PRODUCT_COUNT) int productCount, HttpServletRequest request){
         Product product = gadgetService.getProductById(productId);
         Cart cart = getCart(request);
         cart.addToCart(product, productCount);

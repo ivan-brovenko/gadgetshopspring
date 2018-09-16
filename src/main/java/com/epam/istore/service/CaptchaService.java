@@ -36,7 +36,7 @@ public class CaptchaService {
         return captchaStrategy.getCaptchaById(captchaId, request);
     }
 
-    public Captcha generateCaptcha(long timeInterval) throws IOException {
+    public Captcha generateCaptcha(long timeInterval){
         return captchaGenerator.generateCaptcha(timeInterval);
     }
 }

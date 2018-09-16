@@ -27,7 +27,7 @@ public class CaptchaGenerator {
     private final static Color SOFT_GRAY = new Color(154, 154, 154);
     private static final boolean IS_CYCLIC = true;
 
-    public Captcha generateCaptcha(long time) throws IOException {
+    public Captcha generateCaptcha(long time){
         char data[] = RandomStringUtils.randomNumeric(COUNT_OF_NUMBERS_IN_CAPTCHA).toLowerCase().toCharArray();
         BufferedImage bufferedImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = bufferedImage.createGraphics();

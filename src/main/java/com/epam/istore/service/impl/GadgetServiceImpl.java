@@ -7,15 +7,11 @@ import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
 import com.epam.istore.model.ProducerCountry;
-import com.epam.istore.exception.RepositoryException;
-import com.epam.istore.exception.ServiceException;
 import com.epam.istore.repository.impl.GadgetRepositoryImpl;
 import com.epam.istore.service.GadgetService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;

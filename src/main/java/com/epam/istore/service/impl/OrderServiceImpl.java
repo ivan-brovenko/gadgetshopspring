@@ -2,8 +2,6 @@ package com.epam.istore.service.impl;
 
 
 import com.epam.istore.model.Order;
-import com.epam.istore.exception.RepositoryException;
-import com.epam.istore.exception.ServiceException;
 import com.epam.istore.repository.OrderRepository;
 import com.epam.istore.service.OrderService;
 import org.apache.log4j.Logger;
@@ -18,13 +16,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     @Override
-    public void addOrder(Order order) throws ServiceException {
-        try {
-            orderRepository.addOrder(order);
-        } catch (RepositoryException e) {
-            LOGGER.error(e);
-            throw new ServiceException(e);
-        }
-
+    public void addOrder(Order order) {
+        orderRepository.addOrder(order);
     }
 }

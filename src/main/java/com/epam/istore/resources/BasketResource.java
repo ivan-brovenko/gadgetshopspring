@@ -1,12 +1,10 @@
 package com.epam.istore.resources;
 
 
-import com.epam.istore.exception.ServiceException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface BasketResource {
@@ -16,7 +14,7 @@ public interface BasketResource {
 
     @PutMapping("/basket")
     @ResponseBody
-    String putToTheBasket(int productId, int productCount, HttpServletRequest request) throws ServiceException;
+    String putToTheBasket(int productId, int productCount, HttpServletRequest request);
 
     @DeleteMapping("/basket")
     @ResponseBody

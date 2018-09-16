@@ -20,7 +20,7 @@
 <div class="content">
     <div class="reg">
         <h2>Fill the form to register</h2>
-        <form action="/reg" id="regForm" method="post" onsubmit="return validate(this)">
+        <form action="/reg" id="regForm" method="post" onsubmit="return validate(this)" enctype="multipart/form-data">
             <label for="name">Type your name</label>
             <input type="text" id="name" name="name" value="${bean.name}"
                    class="${(not empty errors.name)?"redOutline":""}">
@@ -61,7 +61,7 @@
             </div>
             <label for="photo">Upload your photo</label><br>
             <div class="fileUpload">
-            <input type="file" id="photo" name="photo"><br>
+            <input type="file" id="photo" name="file"><br>
             </div>
             <div class="messages serv">${errors.photo}</div>
             <tag:captcha/>

@@ -1,7 +1,6 @@
 package com.epam.istore.resources.impl;
 
 import com.epam.istore.model.Order;
-import com.epam.istore.exception.ServiceException;
 import com.epam.istore.resources.ConfirmResource;
 import com.epam.istore.service.OrderService;
 import org.apache.log4j.Logger;
@@ -33,7 +32,7 @@ public class ConfirmResourceImpl implements ConfirmResource {
             session.removeAttribute(CART);
             session.removeAttribute(CART_BEAN);
             return "redirect:"+PAGES_SUCCESS_ORDER_JSP;
-        } catch (ServiceException e) {
+        } catch (Exception e) {
             LOGGER.error(e);
             return "redirect:"+CONFIRM;
         }

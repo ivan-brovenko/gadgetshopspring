@@ -4,19 +4,18 @@ package com.epam.istore.repository;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
 import com.epam.istore.model.ProducerCountry;
-import com.epam.istore.exception.RepositoryException;
 
 import java.util.List;
 
 public interface GadgetRepository {
-    List<Product> getFiltered(String query) throws RepositoryException;
+    List<Product> getFiltered(String query);
 
-    List<Category> getAllCategories() throws RepositoryException;
+    List<Category> getAllCategories();
 
-    int getNumberOfRows(String query) throws RepositoryException;
+    int getNumberOfRows(String query);
 
-    List<ProducerCountry> getAllCountries() throws RepositoryException;
+    List<ProducerCountry> getAllCountries();
 
-    Product getProductById(int productId) throws RepositoryException;
+    Product getProductById(int productId);
 
 }
