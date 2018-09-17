@@ -9,7 +9,5 @@ public interface UserService {
 
     void registerUser(User user);
 
-    void logout(HttpSession session);
-
     User getAuthenticatedUser(String login, String password);
 }

@@ -26,10 +26,6 @@ public class UserServiceImpl implements UserService {
                 .stream()
                 .filter(user -> user.getEmail().equals(login) &&
                         user.getPassword().equals(password))
-                .findFirst().get();
-    }
-
-    public void logout(HttpSession session) {
-        session.invalidate();
+                .findFirst().orElse(null);
     }
 }
