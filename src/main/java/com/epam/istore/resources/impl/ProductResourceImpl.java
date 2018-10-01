@@ -1,15 +1,15 @@
 package com.epam.istore.resources.impl;
 
 
-import com.epam.istore.bean.ProductFormBean;
+import com.epam.istore.model.ProductDto;
 import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.ProducerCountry;
 import com.epam.istore.model.Product;
 import com.epam.istore.messages.Messages;
 import com.epam.istore.resources.ProductResource;
-import com.epam.istore.service.GadgetService;
-import lombok.Setter;
+import com.epam.istore.service.ProductService;
+import lombok.Data;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,30 +26,26 @@ import static com.epam.istore.util.StringConstants.CURRENT_PAGE_EQUALS;
 import static com.epam.istore.util.StringConstants.URL;
 
 @Controller
+@Data
 public class ProductResourceImpl implements ProductResource {
     public final static Logger LOGGER = Logger.getRootLogger();
 
     @Autowired
-    @Setter
-    private GadgetService gadgetService;
-
-    @Autowired
-    @Setter
-    private ProductFormBean productFormBean;
+    private ProductService productService;
 
     @Override
-    public String createProductPage(HttpServletRequest request) {
-        setAttributesFromPreviousRequest(request);
-        fill(request);
-        ProductListDTO productListDTO = gadgetService.getProductListDTO(productFormBean);
+    public String createProductPage(HttpServletRequest request, ProductDto productDto) {
+//        setAttributesFromPreviousRequest(request);
+        fill(request, productDto);
+        ProductListDTO productListDTO = productService.getProductListDTO(productDto);
         int numberOfPages = productListDTO.getNumberOfPages();
         List<Product> products = productListDTO.getProducts();
         request.setAttribute(GADGETS, products);
-        List<Category> categories = gadgetService.getAllCategories();
+        List<Category> categories = productService.getAllCategories();
         request.setAttribute(CATEGORIES, categories);
-        List<ProducerCountry> producerCountries = gadgetService.getAllCountries();
+        List<ProducerCountry> producerCountries = productService.getAllCountries();
         String urlListOfAttributes = validateQueryString(request.getQueryString());
-        setAttributesToRequest(request, productFormBean, numberOfPages, producerCountries, urlListOfAttributes);
+        setAttributesToRequest(request, productDto, numberOfPages, producerCountries, urlListOfAttributes);
         return PAGES_PRODUCTS_JSP;
     }
 
@@ -60,35 +56,34 @@ public class ProductResourceImpl implements ProductResource {
         return queryString;
     }
 
-    private void setAttributesToRequest(HttpServletRequest request, ProductFormBean productFormBean, int numberOfPages, List<ProducerCountry> producerCountries, String urlListOfAttributes) {
+    private void setAttributesToRequest(HttpServletRequest request, ProductDto productDto, int numberOfPages, List<ProducerCountry> producerCountries, String urlListOfAttributes) {
         request.setAttribute(COUNTRIES, producerCountries);
         request.setAttribute(NUMBER_OF_PAGES, numberOfPages);
-        request.setAttribute(Messages.CURRENT_PAGE, productFormBean.getCurrentPage());
-        request.setAttribute(RECORDS_PER_PAGE, productFormBean.getProductLimit());
+        request.setAttribute(Messages.CURRENT_PAGE, productDto.getCurrentPage());
+        request.setAttribute(RECORDS_PER_PAGE, productDto.getProductLimit());
         request.setAttribute(URL, urlListOfAttributes);
     }
 
-    private ProductFormBean fill(HttpServletRequest request) {
-
-        productFormBean.setPriceMin(request.getParameter(PRICE_FROM));
-        productFormBean.setPriceMax(request.getParameter(PRICE_TO));
-        productFormBean.setCategory(filterCategories(request.getParameterValues(CATEGORIES_CHECK)));
-        productFormBean.setProductCountry(request.getParameter(PRODUCER_COUNTRY));
-        productFormBean.setProductName(request.getParameter(PRODUCT_NAME));
-        productFormBean.setSortingType(request.getParameter(SORT));
+    private ProductDto fill(HttpServletRequest request, ProductDto productDto) {
+        productDto.setPriceMin(request.getParameter(PRICE_FROM));
+        productDto.setPriceMax(request.getParameter(PRICE_TO));
+        productDto.setCategory(filterCategories(request.getParameterValues(CATEGORIES_CHECK)));
+        productDto.setProductCountry(request.getParameter(PRODUCER_COUNTRY));
+        productDto.setProductName(request.getParameter(PRODUCT_NAME));
+        productDto.setSortingType(request.getParameter(SORT));
         if (StringUtils.isNotBlank(request.getParameter(LIMIT_ARGUMENT)) &&
                 StringUtils.isNumeric(request.getParameter(LIMIT_ARGUMENT))) {
-            productFormBean.setProductLimit(request.getParameter(LIMIT_ARGUMENT));
+            productDto.setProductLimit(request.getParameter(LIMIT_ARGUMENT));
         } else {
-            productFormBean.setProductLimit(DEFAULT_PRODUCT_LIMIT);
+            productDto.setProductLimit(DEFAULT_PRODUCT_LIMIT);
         }
         if (StringUtils.isNotBlank(request.getParameter(Messages.CURRENT_PAGE)) &&
                 StringUtils.isNumeric(request.getParameter(Messages.CURRENT_PAGE))) {
-            productFormBean.setCurrentPage(request.getParameter(Messages.CURRENT_PAGE));
+            productDto.setCurrentPage(request.getParameter(Messages.CURRENT_PAGE));
         } else {
-            productFormBean.setCurrentPage(DEFAULT_CURRENT_PAGE_VALUE);
+            productDto.setCurrentPage(DEFAULT_CURRENT_PAGE_VALUE);
         }
-        return productFormBean;
+        return productDto;
     }
 
     private String[] filterCategories(String[] unfiltered) {

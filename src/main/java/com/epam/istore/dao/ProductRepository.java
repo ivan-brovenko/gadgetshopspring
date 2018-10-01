@@ -1,4 +1,4 @@
-package com.epam.istore.repository;
+package com.epam.istore.dao;
 
 
 import com.epam.istore.model.Category;
@@ -7,7 +7,7 @@ import com.epam.istore.model.ProducerCountry;
 
 import java.util.List;
 
-public interface GadgetRepository {
+public interface ProductRepository {
     List<Product> getFiltered(String query);
 
     List<Category> getAllCategories();

@@ -113,7 +113,7 @@
                     <div>${gadget.name}</div>
                     <div>${gadget.price}$</div>
                     <div>${gadget.memorySize} GB</div>
-                    <input hidden type="number" value="${gadget.id}" class="productId">
+                    <input hidden type="text" value="${gadget.id}" class="productId">
                     <input type="number" class="productCount" min="1" value="1">
                     <button class="buyBt">buy</button>
                 </div>

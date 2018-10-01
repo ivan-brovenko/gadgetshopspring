@@ -1,6 +1,6 @@
 package com.epam.istore.builder;
 
-import com.epam.istore.bean.ProductFormBean;
+import com.epam.istore.model.ProductDto;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
@@ -41,39 +41,39 @@ public class ProductQueryBuilder {
         sortingContainer.put(PRICE_DESC, ORDER_BY_GADGET_PRICE_DESC);
     }
 
-    private void priceFilter(ProductFormBean productFormBean) {
-        if (checkNotNullAndNotEmpty(productFormBean.getPriceMin())) {
-            start.append(WHERE_GADGET_PRICE + productFormBean.getPriceMin());
+    private void priceFilter(ProductDto productDto) {
+        if (checkNotNullAndNotEmpty(productDto.getPriceMin())) {
+            start.append(WHERE_GADGET_PRICE + productDto.getPriceMin());
         }
-        if (checkNotNullAndNotEmpty(productFormBean.getPriceMax())) {
-            start.append(AND_GADGET_PRICE + productFormBean.getPriceMax());
-        }
-    }
-
-    private void categoryFilter(ProductFormBean productFormBean) {
-        if (productFormBean.getCategory() != null && productFormBean.getCategory().length > 0) {
-            start.append(AND_CATEGORY_CATEGORY_NAME_IN + parseArray(productFormBean.getCategory()) + ")");
+        if (checkNotNullAndNotEmpty(productDto.getPriceMax())) {
+            start.append(AND_GADGET_PRICE + productDto.getPriceMax());
         }
     }
 
-    private void productCountryFilter(ProductFormBean productFormBean) {
-        if (checkNotNullAndNotEmpty(productFormBean.getProductCountry())) {
-            start.append(AND_PRODUCER_COUNTRY_COUNTRY_NAME + productFormBean.getProductCountry() + "'");
+    private void categoryFilter(ProductDto productDto) {
+        if (productDto.getCategory() != null && productDto.getCategory().length > 0) {
+            start.append(AND_CATEGORY_CATEGORY_NAME_IN + parseArray(productDto.getCategory()) + ")");
         }
     }
 
-    private void searchByNameFilter(ProductFormBean productFormBean) {
-        if (validateName(productFormBean.getProductName())) {
-            start.append(AND_GADGET_NAME_LIKE + productFormBean.getProductName() + "%'");
+    private void productCountryFilter(ProductDto productDto) {
+        if (checkNotNullAndNotEmpty(productDto.getProductCountry())) {
+            start.append(AND_PRODUCER_COUNTRY_COUNTRY_NAME + productDto.getProductCountry() + "'");
         }
     }
 
-    private void sortByName(ProductFormBean productFormBean) {
-        if (!checkNotNullAndNotEmpty(productFormBean.getSortingType())) {
+    private void searchByNameFilter(ProductDto productDto) {
+        if (validateName(productDto.getProductName())) {
+            start.append(AND_GADGET_NAME_LIKE + productDto.getProductName() + "%'");
+        }
+    }
+
+    private void sortByName(ProductDto productDto) {
+        if (!checkNotNullAndNotEmpty(productDto.getSortingType())) {
             return;
         }
-        if (sortingContainer.containsKey(productFormBean.getSortingType())) {
-            start.append(sortingContainer.get(productFormBean.getSortingType()));
+        if (sortingContainer.containsKey(productDto.getSortingType())) {
+            start.append(sortingContainer.get(productDto.getSortingType()));
         }
     }
 
@@ -100,27 +100,27 @@ public class ProductQueryBuilder {
         return StringUtils.isNumeric(stringToCheck);
     }
 
-    public String limitFilter(ProductFormBean productFormBean, String start) {
-        if (productFormBean.getProductLimit() != null &&
-                !productFormBean.getProductLimit().equals(StringUtils.EMPTY) &&
-                productFormBean.getCurrentPage() != null &&
-                isNumeric(productFormBean.getCurrentPage()) &&
-                isNumeric(productFormBean.getProductLimit())) {
-            int currentPage = Integer.parseInt(productFormBean.getCurrentPage());
-            int recordsPrePage = Integer.parseInt(productFormBean.getProductLimit());
+    public String limitFilter(ProductDto productDto, String start) {
+        if (productDto.getProductLimit() != null &&
+                !productDto.getProductLimit().equals(StringUtils.EMPTY) &&
+                productDto.getCurrentPage() != null &&
+                isNumeric(productDto.getCurrentPage()) &&
+                isNumeric(productDto.getProductLimit())) {
+            int currentPage = Integer.parseInt(productDto.getCurrentPage());
+            int recordsPrePage = Integer.parseInt(productDto.getProductLimit());
             int offset = currentPage * recordsPrePage - recordsPrePage;
             return start + LIMIT + recordsPrePage + OFFSET + offset;
         }
         return StringUtils.EMPTY;
     }
 
-    public String build(ProductFormBean productFormBean) {
+    public String build(ProductDto productDto) {
         start = new StringBuilder(START_QUERY);
-        priceFilter(productFormBean);
-        categoryFilter(productFormBean);
-        productCountryFilter(productFormBean);
-        searchByNameFilter(productFormBean);
-        sortByName(productFormBean);
+        priceFilter(productDto);
+        categoryFilter(productDto);
+        productCountryFilter(productDto);
+        searchByNameFilter(productDto);
+        sortByName(productDto);
         return start.toString();
     }
 }

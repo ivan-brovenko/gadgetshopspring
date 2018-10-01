@@ -1,14 +1,14 @@
 package com.epam.istore.service.impl;
 
 
-import com.epam.istore.bean.ProductFormBean;
+import com.epam.istore.model.ProductDto;
 import com.epam.istore.builder.ProductQueryBuilder;
 import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
 import com.epam.istore.model.ProducerCountry;
-import com.epam.istore.repository.impl.GadgetRepositoryImpl;
-import com.epam.istore.service.GadgetService;
+import com.epam.istore.dao.impl.ProductRepositoryImpl;
+import com.epam.istore.service.ProductService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,15 +20,15 @@ import java.util.List;
 @Service
 @Log4j
 @Transactional
-public class GadgetServiceImpl implements GadgetService {
+public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private GadgetRepositoryImpl gadgetRepository;
+    private ProductRepositoryImpl gadgetRepository;
     private ProductQueryBuilder productQueryBuilder = new ProductQueryBuilder();
 
     @Override
-    public List<Product> getFiltered(ProductFormBean productFormBean) {
-        String query = productQueryBuilder.limitFilter(productFormBean, productQueryBuilder.build(productFormBean));
+    public List<Product> getFiltered(ProductDto productDto) {
+        String query = productQueryBuilder.limitFilter(productDto, productQueryBuilder.build(productDto));
         return gadgetRepository.getFiltered(query);
     }
 
@@ -48,20 +48,20 @@ public class GadgetServiceImpl implements GadgetService {
     }
 
     @Override
-    public int getNumberOfPages(ProductFormBean productFormBean) {
-        String unfiltered = productQueryBuilder.build(productFormBean);
-        double recordsPrePage = Integer.parseInt(productFormBean.getProductLimit());
+    public int getNumberOfPages(ProductDto productDto) {
+        String unfiltered = productQueryBuilder.build(productDto);
+        double recordsPrePage = Integer.parseInt(productDto.getProductLimit());
         double rows = getNumberOfRows(unfiltered);
         return (int) (Math.ceil(rows / recordsPrePage));
     }
 
     @Override
-    public ProductListDTO getProductListDTO(ProductFormBean productFormBean) {
+    public ProductListDTO getProductListDTO(ProductDto productDto) {
         ProductListDTO productListDTO = new ProductListDTO();
-        int numberOfPages = getNumberOfPages(productFormBean);
-        if (numberOfPages != 0 && numberOfPages >= Integer.parseInt(productFormBean.getCurrentPage())) {
+        int numberOfPages = getNumberOfPages(productDto);
+        if (numberOfPages != 0 && numberOfPages >= Integer.parseInt(productDto.getCurrentPage())) {
             productListDTO.setNumberOfPages(numberOfPages);
-            productListDTO.setProducts(getFiltered(productFormBean));
+            productListDTO.setProducts(getFiltered(productDto));
         } else {
             productListDTO.setProducts(new ArrayList<>());
             productListDTO.setNumberOfPages(1);

@@ -1,5 +1,6 @@
 package com.epam.istore.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,13 +8,12 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "gadget")
-@Setter
-@Getter
+@Data
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     private String name;
 

@@ -1,13 +1,13 @@
 package com.epam.istore.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+@Data
 @Component
-@Setter
-@Getter
 public class UserDto {
     private String name;
     private String surname;

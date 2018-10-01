@@ -1,7 +1,7 @@
 package com.epam.istore.service;
 
 
-import com.epam.istore.bean.ProductFormBean;
+import com.epam.istore.model.ProductDto;
 import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
@@ -9,8 +9,8 @@ import com.epam.istore.model.ProducerCountry;
 
 import java.util.List;
 
-public interface GadgetService {
-    List<Product> getFiltered(ProductFormBean productFormBean);
+public interface ProductService {
+    List<Product> getFiltered(ProductDto productDto);
 
     int getNumberOfRows(String query);
 
@@ -18,9 +18,9 @@ public interface GadgetService {
 
     List<Category> getAllCategories();
 
-    int getNumberOfPages(ProductFormBean productFormBean);
+    int getNumberOfPages(ProductDto productDto);
 
-    ProductListDTO getProductListDTO(ProductFormBean productFormBean);
+    ProductListDTO getProductListDTO(ProductDto productDto);
 
     Product getProductById(int productId);
 
