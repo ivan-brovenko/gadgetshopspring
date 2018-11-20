@@ -14,10 +14,15 @@ import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.time.LocalDateTime;
+import java.util.Random;
 
 import static com.epam.istore.messages.Messages.*;
 import static com.epam.istore.messages.Messages.USER_ATTRIBUTE_NAME;
@@ -62,8 +67,53 @@ public class UserResourceImpl implements UserResource {
         log.debug("Start submit registration command");
         fileUtil.uploadFile(userDto.getFile(), userDto.getEmail());
         userService.registerUser(new RegFormConverter().convert(userDto));
-        log.info("End submit registration command");
         return "redirect:" + MAIN_PAGE_LINK;
+    }
+
+    @Override
+    @ResponseBody
+    public String migrateAllUsers() {
+        userService.migrateAllUsers();
+        return "All users are migrated";
+    }
+
+    @Override
+    public String addRandomUsers(@PathVariable("quantity") String quantity) {
+        int quantityInt = Integer.parseInt(quantity);
+        long before = System.currentTimeMillis();
+        Random random = new Random();
+//        int rand = random.nextInt(10000) + 1;
+        for (int i = 0; i < quantityInt; i++) {
+            UserDto userDto = new UserDto();
+            userDto.setName("name");
+            userDto.setSurname("surname");
+            userDto.setEmail("email" + (i++) + "@gmail.com");
+            userDto.setPassword("1234567890");
+            userDto.setGender("male");
+            userDto.setConfirmPassword("1234567890");
+            userDto.setCaptchaNumbers("1234");
+            submitRegistration(userDto);
+        }
+        long after = System.currentTimeMillis();
+        long diff = after - before;
+        return "" + diff;
+    }
+
+    @Override
+    public String showUpdateUserData(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute(USER_ATTRIBUTE_NAME);
+        request.setAttribute("user", user);
+        return "admin_page";
+    }
+
+    @Override
+    public String updateUserData(UserDto userDto,HttpSession session) {
+        User user = (User) session.getAttribute(USER_ATTRIBUTE_NAME);
+        user.setName(userDto.getName());
+        user.setSurname(userDto.getSurname());
+        userService.updateUser(userDto);
+        return "redirect:/update";
     }
 
     @Override
