@@ -7,7 +7,6 @@ import com.epam.istore.dto.ProductListDTO;
 import com.epam.istore.model.Category;
 import com.epam.istore.model.Product;
 import com.epam.istore.model.ProducerCountry;
-import com.epam.istore.dao.impl.ProductRepositoryImpl;
 import com.epam.istore.service.ProductService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
